@@ -1,7 +1,7 @@
 import joi from "joi";
 
 export const educationSchema= joi.object({
-    schoolName: joi.string().required(),
+        schoolName: joi.string().required(),
         location: joi.string(),
         program: joi.string(),
         qualification: joi.string().optional(),
