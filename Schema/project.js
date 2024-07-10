@@ -1,6 +1,6 @@
 import joi from "joi";
 
-export const userSchema= joi.object({
+export const projectSchema= joi.object({
     projectName: joi.string(),
         description:joi.string(),
         contributors:joi.string(),
