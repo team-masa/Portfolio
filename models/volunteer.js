@@ -1,8 +1,7 @@
 import { Schema, model, Types } from "mongoose";
 import { toJSON } from "@reis/mongoose-to-json";
 //Basic Scheme For Signup & Login
-const volunteerSchema = new Schema([
-    {
+const volunteerSchema = new Schema({
         organization: {type: String},
         description: {type: String},
         skills:{type: String},
@@ -13,8 +12,7 @@ const volunteerSchema = new Schema([
         location: {type: String},
         projectName: {type: String},
         user: {type: Types.ObjectId, ref: 'User'}
-    }
-],{
+    },{
     timestamps:true
 })
 

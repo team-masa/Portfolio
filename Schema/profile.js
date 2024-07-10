@@ -1,13 +1,13 @@
 import joi from "joi";
 
-export const userSchema= joi.object({
-    profilePicture:joi.string(),
+export const profileSchema = joi.object({
+    profilePicture:joi.string().uri(),
     location:joi.string(),
     maritalStatus: joi.string().valid('Single','married', 'prefer-not-to-say'),
     sex: joi.string().valid('Male', 'Female'),
     bio: joi.string(),
     about: joi.string(),
-    dateOfBirth: joi.string(),
+    dateOfBirth: joi.date(),
     contact: joi.string(),
     resume: joi.string(),
     githubLink:joi.string(),

@@ -1,11 +1,11 @@
 import joi from "joi";
 
-export const userSchema= joi.object({
-    companyName:joi.string(),
-    role: joi.string(),
-    responsibility:joi.string(),
-    location: joi.string(),
-    startDate: joi.string().required(),
-    endDate: joi.string().required(),
+export const experienceSchema= joi.object({
+    companyName:joi.string().required(),
+    role: joi.string().required(),
+    responsibility:joi.string().optional(),
+    location: joi.string().required(),
+    startDate: joi.date().required(),
+    endDate: joi.date().required(),
     // user: {type: Types.ObjectId, ref: 'User'}
 })

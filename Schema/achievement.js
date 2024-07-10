@@ -1,11 +1,11 @@
 import joi from "joi";
 
-export const userSchema= joi.object({
-    award:joi.string() ,
+export const achievementSchema= joi.object({
+        award:joi.string() ,
         description:joi.string(),
         image:joi.string().uri.optional(),
         location: joi.string(),
-        date: joi.string(),
-        nameOfInstitution: joi.string(),
+        date: joi.date(),
+        nameOfInstitution: joi.string().required(),
         // user: {type: Types.ObjectId, ref: 'User'}
 })
