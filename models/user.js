@@ -10,8 +10,10 @@ const userSchema = new Schema({
     password:{type: String},
     userName:{type: String, unique: true},
     termsAndConditions: {type: Boolean},
+},{
+    timestamps:true
 });
 
 
  userSchema.plugin(toJSON)
-export const User = model('User', userSchema)
+export const UserModel = model('User', userSchema)

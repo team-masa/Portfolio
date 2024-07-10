@@ -9,7 +9,9 @@ const skillsSchema = new Schema([
            levelOfProficiency: {type: String, enum:['Beginner', 'Intermediate', 'Advanced', 'Expert']},
            user: {type: Types.ObjectId, ref: 'User'}
         }
-])
+],{
+   timestamps:true
+})
 
    skillsSchema.plugin(toJSON)
-  export const User = model('Skills', skillsSchema)
+  export const Skills = model('Skill', skillsSchema)

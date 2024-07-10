@@ -11,7 +11,9 @@ const experienceSchema = new Schema([
     endDate: {type: String},
     user: {type: Types.ObjectId, ref: 'User'}
 }
-])
+],{
+    timestamps:true
+})
 
 experienceSchema.plugin(toJSON)
-export const User = model('Experience', experienceSchema)
+export const ExperienceModel = model('Experience', experienceSchema)

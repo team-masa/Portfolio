@@ -13,7 +13,9 @@ const projectSchema = new Schema([
         endDate: {type: String},
         user: {type: Types.ObjectId, ref: 'User'}
     }
-])
+],{
+    timestamps:true
+})
 
       projectSchema.plugin(toJSON)
-export const User = model('Project', projectSchema)
+export const ProjectModel = model('Project', projectSchema)

@@ -13,7 +13,9 @@ const achievementSchema = new Schema([
         nameOfInstitution: {type: String},
         user: {type: Types.ObjectId, ref: 'User'}
     }
-]);
+],{
+    timestamps:true
+});
 
 achievementSchema.plugin(toJSON)
-export const User = model('Achievement', achievementSchema)
+export const AchievementModel = model('Achievement', achievementSchema)

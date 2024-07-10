@@ -14,8 +14,10 @@ const educationSchema = new Schema([
         endDate: { type: String },
         user: {type: Types.ObjectId, ref: 'User'}
     }
-]);
+],{
+    timestamps:true
+});
 
 
 educationSchema.plugin(toJSON)
-export const User = model('Education', educationSchema)
+export const EducationModel = model('Education', educationSchema)

@@ -23,4 +23,4 @@ const profileSchema = new Schema({
 
 
 profileSchema.plugin(toJSON)
-export const User = model('Profile', profileSchema)
+export const ProfileModel = model('Profile', profileSchema)

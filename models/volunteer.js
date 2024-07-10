@@ -14,7 +14,9 @@ const volunteerSchema = new Schema([
         projectName: {type: String},
         user: {type: Types.ObjectId, ref: 'User'}
     }
-])
+],{
+    timestamps:true
+})
 
 volunteerSchema.plugin(toJSON)
-export const User = model('Volunteer', volunteerSchema)
+export const VolunteerModel = model('Volunteer', volunteerSchema)
