@@ -1,6 +1,6 @@
 import joi from "joi";
 
-export const userSchema= joi.object ({
+export const volunteerSchema= joi.object ({
     organization: joi.string(),
     description:joi.string(),
     skills: joi.string(),

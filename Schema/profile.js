@@ -1,6 +1,6 @@
 import joi from "joi";
 
-export const userSchema= joi.object({
+export const profileSchema= joi.object({
     profilePicture:joi.string(),
     location:joi.string(),
     maritalStatus: joi.string().valid('Single','married', 'prefer-not-to-say'),
