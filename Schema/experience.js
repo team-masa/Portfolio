@@ -5,7 +5,7 @@ export const userSchema= joi.object({
     role: joi.string(),
     responsibility:joi.string(),
     location: joi.string(),
-    startDate: joi.string(),
-    endDate: joi.string(),
+    startDate: joi.string().required(),
+    endDate: joi.string().required(),
     // user: {type: Types.ObjectId, ref: 'User'}
 })

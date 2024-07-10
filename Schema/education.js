@@ -6,7 +6,7 @@ export const userSchema= joi.object({
         program: joi.string(),
         qualification: joi.string(),
         grade: joi.string(),
-        startDate: joi.string(),
-        endDate: joi.string(),
+        startDate: joi.string().required(),
+        endDate: joi.string().required(),
         // user: {type: Types.ObjectId, ref: 'User'}
 })

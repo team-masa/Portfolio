@@ -7,7 +7,7 @@ export const userSchema= joi.object({
         skills:joi.string(),
         link:joi.string(),
         nameOfInstitution: joi.string(),
-        startDate: joi.string(),
-        endDate: joi.string(),
+        startDate: joi.string().required(),
+        endDate: joi.string().required(),
         // user: {type: Types.ObjectId, ref: 'User'}
 })
