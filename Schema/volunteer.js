@@ -1,14 +1,14 @@
 import joi from "joi";
 
 export const volunteerSchema= joi.object ({
-    organization: joi.string(),
-    description:joi.string(),
-    skills: joi.string(),
-    startDate:joi.string().required(),
+    organization: joi.string().required(),
+    description:joi.string().optional(),
+    skills: joi.string().optional(),
+    startDate:joi.date().required(),
     endDate: joi.string().required(),
-    role:joi.string(),
+    role:joi.string().optional(),
     responsibility:joi.string(),
-    location: joi.string(),
-    projectName:joi.string(),
+    location: joi.string().required(),
+    projectName:joi.string().required(),
     // user: {type: Types.ObjectId, ref: 'User'}
         });

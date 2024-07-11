@@ -9,5 +9,5 @@ export const userSchema= joi.object({
     password: joi.string().min(4).required(),
     confirmPassword: joi.ref('password'),
     userName: joi.string().required(),
-    termsAndConditions:  joi.boolean().required()
+    termsAndConditions: joi.boolean().required()
 });

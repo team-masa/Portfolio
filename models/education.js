@@ -3,7 +3,7 @@ import { toJSON } from "@reis/mongoose-to-json";
 
 
 //Basic Scheme For Signup & Login
-const educationSchema = new Schema([
+const educationSchema = new Schema(
     {
         schoolName: { type: String },
         location: { type: String },
@@ -14,7 +14,7 @@ const educationSchema = new Schema([
         endDate: { type: String },
         user: {type: Types.ObjectId, ref: 'User'}
     }
-],{
+,{
     timestamps:true
 });
 

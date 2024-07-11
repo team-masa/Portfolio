@@ -1,12 +1,12 @@
 import joi from "joi";
 
 export const educationSchema= joi.object({
-    schoolName: joi.string(),
+        schoolName: joi.string().required(),
         location: joi.string(),
         program: joi.string(),
-        qualification: joi.string(),
-        grade: joi.string(),
-        startDate: joi.string().required(),
-        endDate: joi.string().required(),
+        qualification: joi.string().optional(),
+        grade: joi.string().optional(),
+        startDate: joi.date().required(),
+        endDate: joi.date().required(),
         // user: {type: Types.ObjectId, ref: 'User'}
 })
