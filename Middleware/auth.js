@@ -1,7 +1,8 @@
-export const checkUserSession = (req, res, next) =>{
-    if(req.session.user){
+
+export const checkUserSession = (req, res, next) => {
+    if (req.session.user) {
         next();
-    } else{
+    } else {
         res.status(401).json('No user session')
     }
 }
