@@ -26,7 +26,6 @@ expressOasGenerator.handleResponses(app, {
 })
 
 
-// console.log('jiji', process.env.Mongo_Url)
 app.use(
     session({
       secret: process.env.SESSION_SECRET,
@@ -49,6 +48,8 @@ app.use("/api/v1", skillRouter);
 app.use("/api/v1", volunteeringRouter);
 
 await mongoose.connect(process.env.Mongo_Url);
+console.log("Database is connected")
+
 
 app.listen(7070, () => {
     console.log('App is Listening on Port 7070')
