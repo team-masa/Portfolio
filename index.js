@@ -4,6 +4,7 @@ import MongoStore from "connect-mongo";
 import cors from "cors";
 import session from "express-session";
 import expressOasGenerator from "@mickeymond/express-oas-generator";
+import "dotenv/config";
 import { userRouter } from "./routes/user.js"; 
 import educationRouter from "./routes/education.js";
 import experienceRouter from "./routes/experience.js";
@@ -25,7 +26,7 @@ expressOasGenerator.handleResponses(app, {
 })
 
 
-
+// console.log('jiji', process.env.Mongo_Url)
 app.use(
     session({
       secret: process.env.SESSION_SECRET,
