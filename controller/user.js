@@ -1,5 +1,5 @@
 import { UserModel } from '../models/user.js'
-import { userSchema } from '../schema/user.js';
+import { userSchema } from '../Schema/userSchema.js';
 import bcrypt from 'bcrypt';
 
 export const signup = async (req, res) =>{

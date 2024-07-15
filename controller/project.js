@@ -1,5 +1,5 @@
 import { UserProfile } from "../models/userProfile.js";
-import { projectSchema } from "../schema/project.js";
+import { projectSchema } from "../Schema/project.js";
 import { ProjectModel } from "../models/project.js";
 import { UserModel } from "../models/user.js";
 
