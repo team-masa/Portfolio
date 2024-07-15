@@ -2,7 +2,7 @@ import { UserProfile } from "../models/userProfile.js";
 import { userProfileSchema } from "../schema/userProfile.js";
 import { UserModel } from "../models/user.js";
 
-export const createdUserProfile = async (req, res) =>{
+export const createProfile = async (req, res) =>{
 try {
         const {error, value} = userProfileSchema.validate({
             ...req.body,
@@ -16,14 +16,14 @@ try {
 
         const userSessionId = req.session.user.id;
 
-        const user = await User.findById(userSessionId)
+        const user = await UserModel.findById(userSessionId)
         if(!user){
             return res.status(404).send('User not found')
         }
     
         const profile = await UserProfile.create({...value, user: userSessionId});
     
-        user.UserProfile = profile._id
+        user.userProfile = profile._id
     
         //and save the user now with the userId
         await user.save()
@@ -35,7 +35,7 @@ try {
 }
 }
 
-export const updateUserProfile = async (req, res) =>{
+export const updateProfile = async (req, res) =>{
     try {
         const {error, value} = userProfileSchema.validate({
             ...req.body,

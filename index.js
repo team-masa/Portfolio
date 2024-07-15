@@ -3,7 +3,13 @@ import mongoose from "mongoose";
 import MongoStore from "connect-mongo";
 import session from "express-session";
 import { userRouter } from "./routes/user.js"; 
-import "dotenv/config";
+import educationRouter from "./routes/education.js";
+import experienceRouter from "./routes/experience.js";
+import achievementRouter from "./routes/achievement.js";
+import { projectRouter } from "./routes/project.js";
+import profileRouter from "./routes/userProfile.js";
+import { skillRouter } from "./routes/skills.js";
+import { volunteeringRouter } from "./routes/volunteer.js";
 
 
 
