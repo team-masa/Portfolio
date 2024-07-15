@@ -33,7 +33,7 @@ app.use(
       saveUninitialized: true,
       // Store session
       store: MongoStore.create({
-        mongoUrl: process.env.Mongo_Url,
+        mongoUrl: process.env.MONGO_URL,
       }),
     })
   );
@@ -47,7 +47,7 @@ app.use("/api/v1", achievementRouter);
 app.use("/api/v1", skillRouter);
 app.use("/api/v1", volunteeringRouter);
 
-await mongoose.connect(process.env.Mongo_Url);
+await mongoose.connect(process.env.MONGO_URL);
 console.log("Database is connected")
 
 
