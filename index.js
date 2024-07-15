@@ -38,6 +38,10 @@ app.use(
     })
   );
 
+app.get("/api/v1/health", (req, res)=>{
+  res.json({status: "UP"});
+});
+
 app.use('/api/v1', userRouter)
 app.use("/api/v1", profileRouter);
 app.use("/api/v1", educationRouter);
