@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import MongoStore from "connect-mongo";
 import cors from "cors";
+import session from "express-session";
 import expressOasGenerator from "@mickeymond/express-oas-generator";
 import { userRouter } from "./routes/user.js"; 
 import educationRouter from "./routes/education.js";

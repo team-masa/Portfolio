@@ -1,5 +1,5 @@
 import { UserProfile } from "../models/userProfile.js";
-import { userProfileSchema } from "../schema/userProfile.js";
+import { userProfileSchema } from "../Schema/userProfile.js";
 import { UserModel } from "../models/user.js";
 
 export const createProfile = async (req, res) =>{
@@ -48,7 +48,7 @@ export const updateProfile = async (req, res) =>{
         }
 
         const userSessionId = req.session.user.id;
-        const user = await User.findById(userSessionId);
+        const user = await UserModel.findById(userSessionId);
         if (!user){
             return res.status(404).send("User not found");
         }

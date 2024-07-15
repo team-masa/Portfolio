@@ -2,8 +2,7 @@ import { getUser, getUsers, login, signup } from "../controller/user.js";
 import { Router } from "express";
 import { checkUserSession } from "../Middleware/auth.js";
 import { remoteUpload } from "../Middleware/upload.js";
-import { createdUserProfile, getUserProfile, updateUserProfile } from "../controller/userProfile.js";
-
+import { createProfile, getUserProfile, updateProfile } from "../controller/userProfile.js";
 export const userRouter = Router()
 
 userRouter.get("/users", getUsers);
@@ -18,7 +17,7 @@ userRouter.post(
         {name: "resume", maxCount: 1},
     ]),
     checkUserSession,
-    createdUserProfile
+    createProfile
 );
 
 userRouter.patch(
@@ -28,5 +27,5 @@ userRouter.patch(
         {name: "resume", maxCount: 1},
     ]),
     checkUserSession,
-    updateUserProfile
+    updateProfile
 )

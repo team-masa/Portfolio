@@ -1,4 +1,4 @@
-import { createUserSkill, deleteUserSkill, getAllUserSkills, updateUserSkill } from "../controller/skills";
+import { createUserSkill, deleteUserSkill, getAllUserSkills, updateUserSkill } from "../controller/skills.js";
 import { checkUserSession } from "../Middleware/auth.js";
 import { Router } from "express";
 

@@ -3,7 +3,7 @@ import joi from "joi";
 export const achievementSchema= joi.object({
         award:joi.string() ,
         description:joi.string(),
-        image:joi.string().uri.optional(),
+        image:joi.string(),
         location: joi.string(),
         date: joi.date(),
         nameOfInstitution: joi.string().required(),
