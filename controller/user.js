@@ -27,6 +27,40 @@ export const signup = async (req, res) =>{
 
 }
 
+
+
+// Login user
+export const login = async (req, res, next) => {
+  try {
+    const { userName, email, password } = req.body;
+    //  Find a user using their email or username
+    const user = await UserModel.findOne({
+      $or: [{ email }, { userName }],
+    });
+
+    if (!user) {
+      return res.status(401).json("User does not exist");
+    }else {
+        const correctPass = await bcrypt.compare(password, user.password);
+    if (!correctPass) {
+      return res.status(401).json("Invalid login details");
+    }
+    // Generate a session for the user
+    req.session.user = { id: user.id };
+
+    res.status(201).json("Login successful");
+    }
+    // Verify user password
+    
+  } catch (error) {
+    console.log(error)
+    next(error);
+  }
+};
+
+
+
+
 export const getUser = async (req, res, next) => {
 try {
       

@@ -8,7 +8,7 @@ import educationRouter from "./routes/education.js";
 import experienceRouter from "./routes/experience.js";
 import achievementRouter from "./routes/achievement.js";
 import { projectRouter } from "./routes/project.js";
-import profileRouter from "./routes/profile.js";
+import profileRouter from "./routes/userProfile.js";
 import { skillRouter } from "./routes/skills.js";
 import { volunteeringRouter } from "./routes/volunteer.js";
 
