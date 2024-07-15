@@ -1,5 +1,7 @@
 import { Router } from "express";
-import { checkUserSession } from "../Middleware/auth.js";
+import session from "express-session";
+import MongoStore from "connect-mongo";
+import cors from "cors";
 import { createtEducation, updateEducation, getAllUserEducation, deleteUserEducation} from "../controller/education.js";
 
 const educationRouter = Router();
