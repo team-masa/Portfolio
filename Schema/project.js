@@ -9,5 +9,6 @@ export const projectSchema= joi.object({
         nameOfInstitution: joi.string().required(),
         startDate: joi.date().required(),
         endDate: joi.string().required(),
+        user: joi.string().required()
         // user: {type: Types.ObjectId, ref: 'User'}
 })

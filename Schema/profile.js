@@ -14,5 +14,6 @@ import joi from "joi";
     githubLink:joi.string(),
     linkedinLink:joi.string(),
     twitterLink:joi.string(),
+    user: joi.string().required()
     // user: {type: Types.ObjectId, ref: 'User'}
 })
