@@ -8,5 +8,6 @@ export const educationSchema= joi.object({
         grade: joi.string().optional(),
         startDate: joi.date().required(),
         endDate: joi.date().required(),
+        user: joi.string().required()
         // user: {type: Types.ObjectId, ref: 'User'}
 })

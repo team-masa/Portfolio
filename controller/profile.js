@@ -1,5 +1,5 @@
 import { ProfileModel } from "../models/profile.js";
-import { profileSchema } from "../Schema/profile.js";
+import { profileSchema } from "../schema/profile.js";
 
 // Validation is needed when creating and updating
 
