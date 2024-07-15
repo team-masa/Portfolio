@@ -4,26 +4,29 @@ import bcrypt from 'bcrypt';
 
 export const signup = async (req, res) =>{
 
-    const {error, value} = userSchema.validate(req.body)
-    if(error){
-        return res.status(400).send(error.details[0].message)
+    try {
+      const {error, value} = userSchema.validate(req.body)
+      if(error){
+          return res.status(400).send(error.details[0].message)
+      }
+  
+      const email = value.email
+  
+      const findIfUserExist = await UserModel.findOne({email})
+      if(findIfUserExist){
+          return res.status(401).send('User has already signedup')
+      }else{
+          const hashedPassword = await bcrypt.hash(value.password, 6);
+          value.password = hashedPassword;
+  
+          const addUser = await UserModel.create(value);
+  
+          req.session.user = {id: addUser.id};
+          return res.status(201).json({'message': "Registration successful"});
+          }
+    } catch (error) {
+      console.log(error.message)
     }
-
-    const email = value.email
-    console.log('email', email)
-
-    const findIfUserExist = await UserModel.findOne({email})
-    if(findIfUserExist){
-        return res.status(401).send('User has already signedup')
-    }else{
-        const hashedPassword = await bcrypt.hash(value.password, 12);
-        value.password = hashedPassword;
-
-        const addUser = await UserModel.create({value});
-
-        req.session.user = {id: addUser.id};
-        return res.status(201).send('User created successfully')
-        }
 
 }
 
@@ -68,6 +71,8 @@ try {
       //get user based on the user id
       //use the select to exclude the password
       //use populate to populate the education
+      const options = { sort: { startDate: -1 } }
+
       const userDetails = await UserModel.findOne({userName})
         .populate({
           path:"education",
@@ -96,7 +101,7 @@ try {
 } catch (error) {
   next(error)
 }
-}
+};
 
 
 
@@ -116,7 +121,7 @@ export const getUsers = async (req, res) =>{
   const users = await UserModel.find(filter);
 
   return res.status(200).json({users})
-}
+};
 
 export const logout = async (req, res, next) =>{
     try {

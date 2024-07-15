@@ -47,10 +47,15 @@ app.use("/api/v1", achievementRouter);
 app.use("/api/v1", skillRouter);
 app.use("/api/v1", volunteeringRouter);
 
+expressOasGenerator.handleRequests();
+app.use((req, res) => res.redirect('/api-docs/'));
+
 await mongoose.connect(process.env.MONGO_URL);
 console.log("Database is connected")
+
 
 
 app.listen(7070, () => {
     console.log('App is Listening on Port 7070')
 });
+
