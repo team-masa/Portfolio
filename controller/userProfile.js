@@ -2,7 +2,7 @@ import { UserProfile } from "../models/userProfile.js";
 import { userProfileSchema } from "../Schema/userProfile.js";
 import { UserModel } from "../models/user.js";
 
-export const createProfile = async (req, res) =>{
+export const createProfile = async (req, res, next) =>{
 try {
         const {error, value} = userProfileSchema.validate({
             ...req.body,

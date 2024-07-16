@@ -10,7 +10,7 @@ import educationRouter from "./routes/education.js";
 import experienceRouter from "./routes/experience.js";
 import achievementRouter from "./routes/achievement.js";
 import { projectRouter } from "./routes/project.js";
-import profileRouter from "./routes/userProfile.js";
+import userProfileRouter from "./routes/userProfile.js";
 import { skillRouter } from "./routes/skills.js";
 import { volunteeringRouter } from "./routes/volunteer.js";
 
@@ -43,7 +43,7 @@ app.get("/api/v1/health", (req, res)=>{
 });
 
 app.use('/api/v1', userRouter)
-app.use("/api/v1", profileRouter);
+app.use("/api/v1", userProfileRouter);
 app.use("/api/v1", educationRouter);
 app.use("/api/v1", projectRouter);
 app.use("/api/v1", experienceRouter);

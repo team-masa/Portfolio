@@ -1,6 +1,6 @@
 import joi from "joi";
 
-export const volunteerSchema= joi.object ({
+export const volunteeringSchema= joi.object ({
     organization: joi.string().required(),
     description:joi.string().optional(),
     skills: joi.string().optional(),
