@@ -7,6 +7,6 @@ export const achievementSchema= joi.object({
         location: joi.string(),
         date: joi.date(),
         nameOfInstitution: joi.string().required(),
-        user: joi.string().required()
+        user: joi.string()
         // user: {type: Types.ObjectId, ref: 'User'}
 })

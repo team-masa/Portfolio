@@ -5,11 +5,11 @@ export const volunteerSchema= joi.object ({
     description:joi.string().optional(),
     skills: joi.string().optional(),
     startDate:joi.date().required(),
-    endDate: joi.string().required(),
+    endDate: joi.string(),
     role:joi.string().optional(),
     responsibility:joi.string(),
-    location: joi.string().required(),
-    projectName:joi.string().required(),
-    user: joi.string().required()
+    location: joi.string(),
+    projectName:joi.string(),
+    user: joi.string()
     // user: {type: Types.ObjectId, ref: 'User'}
         });
