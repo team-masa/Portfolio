@@ -8,7 +8,6 @@ try {
     
               const {error, value} = achievementSchema.validate({
                 ...req.body,
-                award: req.files.award[0].filename,
                 image: req.files.image[0].filename,
             });
     
@@ -49,7 +48,6 @@ try {
        try {
            const {error, value} = achievementSchema.validate({  
             ...req.body,
-            award: req.files.award[0].filename,
             image: req.files.image[0].filename,})
 
           if(error){

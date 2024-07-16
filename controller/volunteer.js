@@ -44,11 +44,11 @@ export const getAllUserVolunteering = async (req, res) =>{
  try {
    //we are fetching volunteer that belongs to a particular user
    const userSessionId = req.session.user.id
-   const allvolunteering = await VolunteerModel.find({user: userSessionId})
-   if(allvolunteer.length == 0){
+   const allVolunteer = await VolunteerModel.find({user: userSessionId})
+   if(allVolunteer.length == 0){
      return res.status(404).send('No volunteering added')
    }
-   res.status(200).json({Volunteering: allvolunteering})
+   res.status(200).json({Volunteering: allVolunteer})
  } catch (error) {
     return res.status(500).json({error})
  }
@@ -56,7 +56,7 @@ export const getAllUserVolunteering = async (req, res) =>{
 
 export const updateUserVolunteering = async (req, res) =>{
   try {
-    const {error, value} = volunteerSchema.validate(req.body);
+    const {error, value} = volunteeringSchema.validate(req.body);
 
     if(error){
       return res.status(400).send(error.details[0].message);
@@ -77,7 +77,7 @@ export const updateUserVolunteering = async (req, res) =>{
       return res.status(404).send("Volunteering not found");
     }
 
-    res.status(200).json({Volunteering})
+    res.status(200).json({volunteering})
   } catch (error) {
     return res.status(500).json({error})
   }

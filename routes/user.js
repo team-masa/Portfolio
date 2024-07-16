@@ -1,7 +1,7 @@
 import { getUser, getUsers, login, signup } from "../controller/user.js";
 import { Router } from "express";
-import { checkUserSession } from "../Middleware/auth.js";
-import { remoteUpload } from "../Middleware/upload.js";
+// import { checkUserSession } from "../Middleware/auth.js";
+// import { remoteUpload } from "../Middleware/upload.js";
 // import { createProfile, getUserProfile, updateProfile } from "../controller/userProfile.js";
 export const userRouter = Router()
 

@@ -11,9 +11,10 @@ export const createtEducation = async(req, res) =>{
            return res.status(400).send(error.details[0].message)
        }
   //after, find the user with the id that you passed when creating the education
-  console.log('userId',req.session.user.id)
+  // console.log('userId',req.session.user.id)
 
     //find the user with the id passed when creating the education
+    const userSessionId = req.session.user.id
     const user = await UserModel.findById(userSessionId)
     if (!user) {
       return res.status(404).send('User not found');

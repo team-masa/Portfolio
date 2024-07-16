@@ -21,7 +21,7 @@ export const createUserSkill = async (req, res) =>{
         const skill = await SkillsModel.create({...value, user: userSessionId});
 
         //if you find the user, push the skills id you just created inside
-        user.skills.push(skills._id);
+        user.skills.push(skill._id);
 
         //and save the user now with the skillsid
         await user.save();
@@ -37,12 +37,12 @@ export const getAllUserSkills = async (req, res) =>{
     
 try {
         //we are fetching skills that belongs to a particular user
-        const userSessionId = req.session.user._id
-        const allskill =  await SkillsModel.find({user: userSessionId });
-        if(allskill.length == 0){
+        const userSessionId = req.session.user.id
+        const allSkill =  await SkillsModel.find({user: userSessionId });
+        if(allSkill.length == 0){
             return res.status(404).send('No Skills added')
         }
-        res.status(200).json({Skills:allskill})
+        res.status(200).json({Skill:allSkill})
 } catch (error) {
     return res.status(500).json({error})
 }

@@ -2,7 +2,6 @@
 import { UserModel } from "../models/user.js";
 import { ExperienceModel } from "../models/experience.js";
 import { experienceSchema } from "../Schema/experience.js";
-import { userProfileSchema } from "../Schema/userProfile.js";
 
 
 
@@ -37,7 +36,7 @@ export const createExperience = async (req, res) => {
    
   export const updateExperience = async (req, res) => {
     try {
-      const { error, value } = userProfileSchema.validate(req.body);
+      const { error, value } = experienceSchema.validate(req.body);
   
       if (error) {
         return res.status(400).send(error.details[0].message);
