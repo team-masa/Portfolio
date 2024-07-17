@@ -1,5 +1,6 @@
 import joi from "joi";
 
+
 export const userSchema= joi.object({
     
     firstName: joi.string().required(),
@@ -9,6 +10,6 @@ export const userSchema= joi.object({
     password: joi.string().min(4).required(),
     confirmPassword: joi.ref('password'),
     userName: joi.string().required(),
-    termsAndConditions: joi.boolean().required(),
-    user: joi.string().required()
-});
+    termsAndConditions: joi.boolean(),
+
+}) .with('password', 'confirmPassword');

@@ -6,7 +6,7 @@ export const experienceSchema= joi.object({
     responsibility:joi.string().optional(),
     location: joi.string().required(),
     startDate: joi.date().required(),
-    endDate: joi.date().required(),
-    user: joi.string().required()
+    endDate: joi.date(),
+    user: joi.string()
     // user: {type: Types.ObjectId, ref: 'User'}
 })

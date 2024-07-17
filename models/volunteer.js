@@ -17,4 +17,4 @@ const volunteerSchema = new Schema({
 })
 
 volunteerSchema.plugin(toJSON)
-export const VolunteerModel = model('Volunteer', volunteerSchema)
+export const VolunteerModel = model('Volunteering', volunteerSchema)

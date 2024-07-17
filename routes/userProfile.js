@@ -6,12 +6,26 @@ import { remoteUpload } from "../Middleware/upload.js";
 import { createProfile, getUserProfile, updateProfile } from "../controller/userProfile.js";
 
 
-const profileRouter = Router();
+const userProfileRouter = Router();
+userProfileRouter.get("/users/userProfile", checkUserSession, getUserProfile);
+userProfileRouter.post(
+    "/users/userProfile",
+    remoteUpload.fields([
+        {name: "profilePicture", maxCount: 1},
+        {name: "resume", maxCount: 1},
+    ]),
+    checkUserSession,
+    createProfile
+);
 
-profileRouter.post('/users/profile', checkUserSession, remoteUpload.single('profilePicture'), createProfile)
+userProfileRouter.patch(
+    "/users/userProfile/:id",
+    remoteUpload.fields([
+        {name:"profilePicture", maxCount: 1},
+        {name: "resume", maxCount: 1},
+    ]),
+    checkUserSession,
+    updateProfile
+)
 
-profileRouter.patch('/users/profile', checkUserSession, remoteUpload.single('profilePicture'), updateProfile)
-
-profileRouter.get('/users/profile',  checkUserSession, getUserProfile)
-
-export default profileRouter
+export default userProfileRouter;

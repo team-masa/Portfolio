@@ -1,12 +1,10 @@
-import { UserProfile } from "../models/userProfile.js";
-import { volunteerSchema } from "../schema/volunteer.js";
+import { volunteeringSchema } from "../Schema/volunteer.js";
 import { UserModel } from "../models/user.js";
-import { ProjectModel } from "../models/project.js";
 import { VolunteerModel } from "../models/volunteer.js";
 
 export const createUserVolunteering = async (req, res) =>{
    try {
-     const {error, value} = volunteerSchema.validate(req.body)
+     const {error, value} = volunteeringSchema.validate(req.body)
      if(error){
          return res.status(400).send(error.details[0].message)
      }

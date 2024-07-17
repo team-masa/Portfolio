@@ -1,7 +1,7 @@
-import { skillSchema } from "../schema/skills.js";
+import { skillSchema } from "../Schema/skills.js";
 import { SkillsModel } from "../models/skills.js";
 import { UserModel } from "../models/user.js";
-import res from "express/lib/response.js";
+// import res from "express/lib/response.js";
 
 export const createUserSkill = async (req, res) =>{
     try {

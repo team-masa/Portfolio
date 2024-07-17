@@ -2,7 +2,7 @@ import { UserProfile } from "../models/userProfile.js";
 import { userProfileSchema } from "../Schema/userProfile.js";
 import { UserModel } from "../models/user.js";
 
-export const createProfile = async (req, res) =>{
+export const createProfile = async (req, res, next) =>{
 try {
         const {error, value} = userProfileSchema.validate({
             ...req.body,
@@ -65,7 +65,8 @@ export const updateProfile = async (req, res) =>{
 
 export const getUserProfile = async (req, res) =>{
     try {
-        const userSessionId = req.session.user.id
+        //Get user id from session or request
+        const userSessionId = req.session?.user?.id || req?.user?.id
         const profile = await UserProfile.find({user: userSessionId});
         if (!profile){
             return res.status(404).send("No profile added");
