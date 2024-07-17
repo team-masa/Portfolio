@@ -1,4 +1,5 @@
 import { UserModel } from '../models/user.js'
+import jwt from "jsonwebtoken"
 import { userSchema } from '../Schema/userSchema.js';
 import bcrypt from 'bcrypt';
 
@@ -32,7 +33,40 @@ export const signup = async (req, res) =>{
 
 
 
-// Login user
+// Token
+export const token = async (req, res, next) => {
+  try {
+    const { userName, email, password } = req.body;
+    //Validate request
+    const user = await UserModel.findOne({
+      $or: [{ email }, { userName }],
+    });
+
+    if (!user) {
+      return res.status(401).json("User does not exist");
+    }else {
+        const correctPass = await bcrypt.compare(password, user.password);
+    if (!correctPass) {
+      return res.status(401).json("Invalid login details");
+    }
+    // Create a token 
+    const token = jwt.sign(
+      {id: user.id}, 
+      process.env.JWT_PRIVATE_KEY,
+      {expiresIn: '1h'}
+    );
+    // Return response
+    res.status(200).json({
+      message: 'User logged in',
+      accessToken: token
+    })
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+
 export const login = async (req, res, next) => {
   try {
     const { userName, email, password } = req.body;
@@ -60,8 +94,6 @@ export const login = async (req, res, next) => {
     next(error);
   }
 };
-
-
 
 
 export const getUser = async (req, res, next) => {

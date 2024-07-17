@@ -7,7 +7,7 @@ import { createProfile, getUserProfile, updateProfile } from "../controller/user
 
 
 const userProfileRouter = Router();
-userProfileRouter.get("/users/userProfile", getUserProfile);
+userProfileRouter.get("/users/userProfile", checkUserSession, getUserProfile);
 userProfileRouter.post(
     "/users/userProfile",
     remoteUpload.fields([
