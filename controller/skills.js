@@ -50,6 +50,22 @@ try {
 }
 }
 
+export const getOneUserSkill = async (req, res) =>{
+    
+    try {
+            //we are fetching skills that belongs to a particular user
+            const userSessionId = req.session?.user?.id || req?.user?.id;
+    
+            const oneSkill =  await SkillsModel.findById({user: userSessionId });
+            if(oneSkillSkill.length == 0){
+                return res.status(404).send('No Skill added')
+            }
+    
+            res.status(200).json({Skills:oneSkillSkill})
+    } catch (error) {
+        return res.status(500).json({error})
+    }
+    }
 
 export const updateUserSkill = async (req, res) =>{
     try {
