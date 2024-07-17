@@ -38,10 +38,12 @@ export const getAllUserSkills = async (req, res) =>{
 try {
         //we are fetching skills that belongs to a particular user
         const userSessionId = req.session?.user?.id || req?.user?.id;
+
         const allSkill =  await SkillsModel.find({user: userSessionId });
         if(allSkill.length == 0){
             return res.status(404).send('No Skills added')
         }
+
         res.status(200).json({Skills:allSkill})
 } catch (error) {
     return res.status(500).json({error})

@@ -2,9 +2,6 @@
 import { UserModel } from "../models/user.js";
 import { ExperienceModel } from "../models/experience.js";
 import { experienceSchema } from "../Schema/experience.js";
-// import { userProfileSchema } from "../Schema/userProfile.js";
-
-
 
 export const createExperience = async (req, res) => {
     try {

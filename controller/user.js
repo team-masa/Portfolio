@@ -122,7 +122,7 @@ try {
           options,
         })
         .populate({
-          path: "volunteering",
+          path: "volunteer",
           options,
         })
         .populate({

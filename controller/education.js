@@ -14,6 +14,7 @@ export const createEducation = async(req, res) =>{
   // console.log('userId',req.session.user.id)
 
     //find the user with the id passed when creating the education
+
     const userSessionId = req.session?.user?.id || req?.user?.id;
     const user = await UserModel.findById(userSessionId)
     if (!user) {
