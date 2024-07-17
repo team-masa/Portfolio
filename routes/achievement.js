@@ -4,9 +4,6 @@ import { createAchievement, updatetAchievement,getAllUserAchievement, deleteUser
 import { remoteUpload } from "../Middleware/upload.js";
 
 const achievementRouter = Router();
-
-
-
 achievementRouter.post('/users/achievement',  checkUserSession,
     remoteUpload.fields([
         {name: "image", maxCount: 1},

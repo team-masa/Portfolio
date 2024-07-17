@@ -9,7 +9,7 @@ export const createUserVolunteering = async (req, res) =>{
          return res.status(400).send(error.details[0].message)
      }
 
-     const userSessionId = req.session.user.id;
+     const userSessionId = req.session?.user?.id || req?.user?.id;
 
 
      //after, find the user with the id that you passed when creating the volunteer
@@ -43,7 +43,8 @@ export const createUserVolunteering = async (req, res) =>{
 export const getAllUserVolunteering = async (req, res) =>{
  try {
    //we are fetching volunteer that belongs to a particular user
-   const userSessionId = req.session.user.id
+   const userSessionId = req.session?.user?.id || req?.user?.id;
+
    const allVolunteer = await VolunteerModel.find({user: userSessionId})
    if(allVolunteer.length == 0){
      return res.status(404).send('No volunteering added')
@@ -62,7 +63,7 @@ export const updateUserVolunteering = async (req, res) =>{
       return res.status(400).send(error.details[0].message);
     }
 
-    const userSessionId = req.session.user.id;
+    const userSessionId = req.session?.user?.id || req?.user?.id;
     const user = await UserModel.findById(userSessionId);
     if(!user){
       return res.status(404).send("User not found");
@@ -86,7 +87,7 @@ export const updateUserVolunteering = async (req, res) =>{
 
 export const deleteUserVolunteering = async (req, res) =>{
   try {
-    const userSessionId = req.session.user.id;
+    const userSessionId = req.session?.user?.id || req?.user?.id;
     const user = await UserModel.findById(userSessionId);
     if(!user){
       return res.status(404).send("User not found");

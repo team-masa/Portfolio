@@ -10,7 +10,7 @@ export const createUserProject = async (req, res) =>{
          return res.status(400).send(error.details[0].message)
      }
 
-     const userSessionId = req.session.user.id;
+     const userSessionId = req.session?.user?.id || req?.user?.id;
 
      //after, find the user with the id that you passed when creating project
      const user = await UserModel.findById(userSessionId);
@@ -24,7 +24,7 @@ export const createUserProject = async (req, res) =>{
      user.projects.push(project._id);
 
      //and save the user now with the project
-     await user.save
+      user.save
 
      //return the project
      res.status(201).json({project})
@@ -36,11 +36,13 @@ export const createUserProject = async (req, res) =>{
 export const getAllUserProjects = async (req, res) =>{
    try {
       //we are fetching Project that belongs to a particular user
-      const userSessionId = req.session.user.id
+      const userSessionId = req.session?.user?.id || req?.user?.id;
+
       const allProject = await ProjectModel.find({user: userSessionId});
       if (allProject.length == 0){
          return res.status(404).send("No Project added");
       }
+
       res.status(200).json({Projects:allProject})
    } catch (error) {
       return res.status(500).json({error})
@@ -55,7 +57,7 @@ export const updateUserProject = async (req, res) =>{
          return res.status(400).send(error.details[0].message);
       }
 
-      const userSessionId = req.session.user.id;
+      const userSessionId = req.session?.user?.id || req?.user?.id;
       const user = await UserModel.findById(userSessionId);
       if(!user){
          return res.status(404).send("User not found");
@@ -75,7 +77,7 @@ export const updateUserProject = async (req, res) =>{
 export const deleteUserProject = async (req, res) =>{
    try {
       
-      const userSessionId = req.session.user.id;
+      const userSessionId = req.session?.user?.id || req?.user?.id;
       const user = await UserModel.findById(userSessionId);
       if(!user){
          return res.status(404).send("User not found");

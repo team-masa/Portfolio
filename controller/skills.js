@@ -10,7 +10,7 @@ export const createUserSkill = async (req, res) =>{
             return res.status(400).send(error.details[0].message)
         }
 
-        const userSessionId = req.session.user.id;
+        const userSessionId = req.session?.user?.id || req?.user?.id;
 
         //after, find the user with the id that you passed when creating the skills
         const user = await UserModel.findById(userSessionId);
@@ -37,12 +37,14 @@ export const getAllUserSkills = async (req, res) =>{
     
 try {
         //we are fetching skills that belongs to a particular user
-        const userSessionId = req.session.user.id
+        const userSessionId = req.session?.user?.id || req?.user?.id;
+
         const allSkill =  await SkillsModel.find({user: userSessionId });
         if(allSkill.length == 0){
             return res.status(404).send('No Skills added')
         }
-        res.status(200).json({Skill:allSkill})
+
+        res.status(200).json({Skills:allSkill})
 } catch (error) {
     return res.status(500).json({error})
 }
@@ -57,7 +59,7 @@ export const updateUserSkill = async (req, res) =>{
             return res.status(400).send(error.details[0].message)
         }
 
-        const userSessionId = req.session.user.id;
+        const userSessionId = req.session?.user?.id || req?.user?.id;
         const user = await UserModel.findById(userSessionId);
         if(!user){
             return res.status(404).send("User not found");
@@ -78,7 +80,7 @@ export const deleteUserSkill = async (req, res) =>{
     try {
         
 
-        const userSessionId = req.session.user.id;
+        const userSessionId = req.session?.user?.id || req?.user?.id;
         const user = await UserModel.findById(userSessionId);
         if(!user){
             return res.status(404).send("User not found");
