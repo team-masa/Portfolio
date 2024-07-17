@@ -3,7 +3,7 @@ import { UserModel } from "../models/user.js";
 import { educationSchema } from "../Schema/education.js";
 
 
-export const createtEducation = async(req, res) =>{
+export const createEducation = async(req, res) =>{
 
  try {
        const {error, value} = educationSchema.validate(req.body)
@@ -11,9 +11,10 @@ export const createtEducation = async(req, res) =>{
            return res.status(400).send(error.details[0].message)
        }
   //after, find the user with the id that you passed when creating the education
-  console.log('userId',req.session.user.id)
+  // console.log('userId',req.session.user.id)
 
     //find the user with the id passed when creating the education
+    const userSessionId = req.session?.user?.id || req?.user?.id;
     const user = await UserModel.findById(userSessionId)
     if (!user) {
       return res.status(404).send('User not found');
@@ -43,7 +44,7 @@ export const updateEducation = async(req, res, next) => {
        }
        console.log('value', value)
 
-       const userSessionId = req.session.user.id; 
+       const userSessionId = req.session?.user?.id || req?.user?.id; 
        const user = await UserModel.findById(userSessionId);
        if (!user) {
          return res.status(404).send("User not found");
@@ -66,12 +67,12 @@ export const getAllUserEducation = async (req, res, next) => {
 
     try {
         //we are fetching education that belongs to a particular user
-         const userSessionId = req.session.user.id
-    const alleducation = await EducationModel.find({ user: userSessionId });
-    if (alleducation.length == 0) {
+         const userSessionId = req.session?.user?.id || req?.user?.id;
+    const allEducation = await EducationModel.find({ user: userSessionId });
+    if (allEducation.length == 0) {
       return res.status(404).send("No education added");
     }
-    res.status(200).json({ education: alleducation });
+    res.status(200).json({ education: allEducation });
     } catch (error) {
       next(error)  
     }
@@ -80,7 +81,7 @@ export const getAllUserEducation = async (req, res, next) => {
 export const deleteUserEducation = async (req, res) => {
     try {
      
-      const userSessionId = req.session.user.id; 
+      const userSessionId = req.session?.user?.id || req?.user?.id; 
       const user = await UserModel.findById(userSessionId);
       if (!user) {
         return res.status(404).send("User not found");

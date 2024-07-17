@@ -7,11 +7,15 @@ const achievementRouter = Router();
 
 
 
-achievementRouter.post('/users/achievement',  checkUserSession, remoteUpload.single('profilePicture'), createAchievement);
+achievementRouter.post('/users/achievement',  checkUserSession, remoteUpload.fields([
+    {name: "image", maxCount: 1},
+]), createAchievement);
 
 achievementRouter.get('/users/achievement',  checkUserSession,getAllUserAchievement);
 
-achievementRouter.patch('/users/achievement/:id', checkUserSession, remoteUpload.single('profilePicture'),updatetAchievement);
+achievementRouter.patch('/users/achievement/:id', checkUserSession, remoteUpload.fields([
+    {name: "image", maxCount: 1},
+]), updatetAchievement);
 
 achievementRouter.delete('/users/achievement/:id', checkUserSession, deleteUserAchievement);
 

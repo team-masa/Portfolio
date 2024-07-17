@@ -2,7 +2,7 @@
 import { UserModel } from "../models/user.js";
 import { ExperienceModel } from "../models/experience.js";
 import { experienceSchema } from "../Schema/experience.js";
-import { userProfileSchema } from "../Schema/userProfile.js";
+// import { userProfileSchema } from "../Schema/userProfile.js";
 
 
 
@@ -14,7 +14,7 @@ export const createExperience = async (req, res) => {
         return res.status(400).send(error.details[0].message);
       }
   
-      const userSessionId = req.session.user.id;
+      const userSessionId = req.session?.user?.id || req?.user?.id;
      
   
       const user = await UserModel.findById(userSessionId);
@@ -37,13 +37,13 @@ export const createExperience = async (req, res) => {
    
   export const updateExperience = async (req, res) => {
     try {
-      const { error, value } = userProfileSchema.validate(req.body);
+      const { error, value } = experienceSchema.validate(req.body);
   
       if (error) {
         return res.status(400).send(error.details[0].message);
       }
   
-      const userSessionId = req.session.user.id; 
+      const userSessionId = req.session?.user?.id || req?.user?.id; 
       const user = await UserModel.findById(userSessionId);
       if (!user) {
         return res.status(404).send("User not found");
@@ -66,7 +66,7 @@ export const createExperience = async (req, res) => {
    
        try {
            //we are fetching experience that belongs to a particular user
-           const userSessionId = req.session.user.id
+           const userSessionId = req.session?.user?.id || req?.user?.id;
            const allExperience = await ExperienceModel.find({user: userSessionId});
 
        if(allExperience.length == 0){
@@ -82,7 +82,7 @@ export const createExperience = async (req, res) => {
     try {
      
   
-      const userSessionId = req.session.user.id; 
+      const userSessionId = req.session?.user?.id || req?.user?.id; 
       const user = await UserModel.findById(userSessionId);
       if (!user) {
         return res.status(404).send("User not found");

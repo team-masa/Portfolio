@@ -22,7 +22,7 @@ export const signup = async (req, res) =>{
   
           const addUser = await UserModel.create(value);
   
-          req.session.user = {id: addUser.id};
+          req.session.user = {id: addUser.id}; 
           return res.status(201).json({'message': "Registration successful"});
           }
     } catch (error) {
@@ -45,7 +45,7 @@ export const token = async (req, res, next) => {
     if (!user) {
       return res.status(401).json("User does not exist");
     }else {
-        const correctPass = await bcrypt.compare(password, user.password);
+        const correctPass =  bcrypt.compare(password, user.password);
     if (!correctPass) {
       return res.status(401).json("Invalid login details");
     }
@@ -78,7 +78,7 @@ export const login = async (req, res, next) => {
     if (!user) {
       return res.status(401).json("User does not exist");
     }else {
-        const correctPass = await bcrypt.compare(password, user.password);
+        const correctPass =  bcrypt.compare(password, user.password);
     if (!correctPass) {
       return res.status(401).json("Invalid login details");
     }

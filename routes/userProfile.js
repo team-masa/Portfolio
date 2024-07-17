@@ -7,7 +7,9 @@ import { createProfile, getUserProfile, updateProfile } from "../controller/user
 
 
 const userProfileRouter = Router();
+
 userProfileRouter.get("/users/userProfile", checkUserSession, getUserProfile);
+
 userProfileRouter.post(
     "/users/userProfile",
     remoteUpload.fields([
@@ -26,6 +28,6 @@ userProfileRouter.patch(
     ]),
     checkUserSession,
     updateProfile
-)
+);
 
 export default userProfileRouter;

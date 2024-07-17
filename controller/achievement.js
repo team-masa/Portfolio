@@ -8,7 +8,6 @@ try {
     
               const {error, value} = achievementSchema.validate({
                 ...req.body,
-                award: req.files.award[0].filename,
                 image: req.files.image[0].filename,
             });
     
@@ -17,7 +16,7 @@ try {
               }
     
             // Creating User Session///find the user with the id passed when creating the achievement
-              const userSessionId = req.session.user.id;
+              const userSessionId = req.session?.user?.id || req?.user?.id;
        
               const user = await UserModel.findById(userSessionId);
               if (!user) {
@@ -45,17 +44,16 @@ try {
    };
    
    
-   export const updatetAchievement = async(req, res, next) => {
+   export const updatetAchievement = async(req, res) => {
        try {
            const {error, value} = achievementSchema.validate({  
             ...req.body,
-            award: req.files.award[0].filename,
             image: req.files.image[0].filename,})
 
           if(error){
               return res.status(400).send(error.details[0].message);
           }
-          const userSessionId = req.session.user.id; 
+          const userSessionId = req.session?.user?.id || req?.user?.id; 
       const user = await UserModel.findById(userSessionId);
       if (!user) {
         return res.status(404).send("User not found");
@@ -77,7 +75,7 @@ try {
    export const getAllUserAchievement = async (req, res) => {
     try {
       //we are fetching Achievement that belongs to a particular user
-      const userSessionId = req.session.user.id
+      const userSessionId = req.session?.user?.id || req?.user?.id;
       const allAchievement = await AchievementModel.find({ user: userSessionId });
       if (allAchievement.length == 0) {
         return res.status(404).send("No Achievement added");
@@ -92,8 +90,8 @@ try {
     try {
      
   
-      const userSessionId = req.session.user.id; 
-      const user = await User.findById(userSessionId);
+      const userSessionId = req.session?.user?.id || req?.user?.id; 
+      const user = await UserModel.findById(userSessionId);
       if (!user) {
         return res.status(404).send("User not found");
       }
