@@ -12,7 +12,7 @@ const educationSchema = new Schema(
         grade: { type: String },
         startDate: { type: String },
         endDate: { type: String },
-        user: {type: Types.ObjectId, ref: 'User'}
+        user: {type: Types.ObjectId, ref: 'User', select:false}
     }
 ,{
     timestamps:true
