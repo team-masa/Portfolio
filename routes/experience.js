@@ -8,7 +8,7 @@ experienceRouter.post('/users/experience', checkUserSession,createExperience)
 
 experienceRouter.get('/users/experience', checkUserSession, getAllUserExperience)
 
-achievementRouter.get('/users/experience/:id', checkUserSession, getOneExperience)
+experienceRouter.get('/users/experience/:id', checkUserSession, getOneExperience)
 
 
 experienceRouter.patch('/users/experience/:id', checkUserSession, updateExperience)

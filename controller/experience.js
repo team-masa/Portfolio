@@ -67,7 +67,7 @@ export const createExperience = async (req, res) => {
            const allExperience = await ExperienceModel.find({user: userSessionId});
 
        if(allExperience.length == 0){
-           return res.status(404).send('No experience added')
+           return res.status(404).send({experience:allExperience})
        }
        res.status(200).json({experience:allExperience})
        } catch (error) {
