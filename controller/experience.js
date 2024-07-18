@@ -25,7 +25,7 @@ export const createExperience = async (req, res) => {
   
       await user.save();
   
-      res.status(201).json({ addExperience });
+      res.status(201).json({ addExperience, message: 'Created Successfully' });
     } catch (error) {
       console.log(error);
     }
@@ -51,7 +51,7 @@ export const createExperience = async (req, res) => {
             return res.status(404).send("experience not found");
         }
   
-      res.status(200).json({ changeExperience });
+      res.status(200).json({ changeExperience,  message: 'Updated Successfully' });
     } catch (error) {
       return res.status(500).json({error})
     }
@@ -101,7 +101,7 @@ export const createExperience = async (req, res) => {
   
         user.experiences.pull(req.params.id);
         await user.save();
-      res.status(200).json("Experience deleted");
+      res.status(200).json({experience,  message: 'Deleted Successfully'});
     } catch (error) {
       return res.status(500).json({error})
     }

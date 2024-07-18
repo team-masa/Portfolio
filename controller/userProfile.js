@@ -28,7 +28,7 @@ try {
         //and save the user now with the userId
         await user.save()
 
-        res.status(201).json({profile});
+        res.status(201).json({profile,  message: 'Created Successfully'});
     
 } catch (error) {
  next(error)   
@@ -57,7 +57,7 @@ export const updateProfile = async (req, res) =>{
         if (!profile){
             return res.status(404).send("Profile not found");
         }
-        res.status(201).json({profile})
+        res.status(201).json({profile,  message: 'Updated Successfully'})
     } catch (error) {
         console.log(error)
     }

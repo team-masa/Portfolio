@@ -32,7 +32,7 @@ export const createUserVolunteering = async (req, res) =>{
      await user.save();
 
      //return the volunteer
-     res.status(201).json({volunteering})
+     res.status(201).json({volunteering,  message: 'Created Successfully'})
 
    } catch (error) {
     console.log(error);
@@ -64,7 +64,7 @@ export const getOneVolunteering = async (req, res) =>{
     if(getOneVolunteer.length == 0){
       return res.status(404).send('No volunteering added')
     }
-    res.status(200).json({Volunteering: oneVolunteer})
+    res.status(200).json({Volunteering: getOneVolunteer})
   } catch (error) {
      return res.status(500).json({error})
   }
@@ -93,7 +93,7 @@ export const updateUserVolunteering = async (req, res) =>{
       return res.status(404).send("Volunteering not found");
     }
 
-    res.status(200).json({volunteering})
+    res.status(200).json({volunteering,  message: 'Updated Successfully'})
   } catch (error) {
     return res.status(500).json({error})
   }
@@ -116,7 +116,7 @@ export const deleteUserVolunteering = async (req, res) =>{
     user.volunteering.pull(req.params.id);
     await user.save();
 
-    res.status(200).json("Volunteering deleted");
+    res.status(200).json({volunteering,  message: 'Deleted Successfully'});
   } catch (error) {
     return res.status(500).json({error});
   }
