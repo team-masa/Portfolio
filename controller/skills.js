@@ -14,9 +14,9 @@ export const createUserSkill = async (req, res, next) =>{
 
         //after, find the user with the id that you passed when creating the skills
         const user = await UserModel.findById(userSessionId);
-        // if(!user){
-        //     return res.status(404).send('User not found');
-        // }
+        if(!user){
+            return res.status(404).send('User not found');
+        }
 
         const skill = await SkillsModel.create({...value, user: userSessionId});
 
@@ -27,7 +27,7 @@ export const createUserSkill = async (req, res, next) =>{
         await user.save();
 
         //return the skills
-        res.status(201).json({skill,  message: 'Created Successfully'})
+        res.status(201).json({ message: 'Created Successfully', skill})
     } catch (error) {
         next(error)
     }
@@ -57,9 +57,9 @@ export const getOneUserSkill = async (req, res) =>{
             const userSessionId = req.session?.user?.id || req?.user?.id;
     
             const oneSkill =  await SkillsModel.findById({user: userSessionId });
-            if(oneSkill.length == 0){
-                return res.status(404).send('No Skill added')
-            }
+            // if(oneSkill.length == 0){
+            //     return res.status(404).send('No Skill added')
+            // }
     
             res.status(200).json({Skills:oneSkill})
     } catch (error) {

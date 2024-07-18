@@ -27,7 +27,7 @@ export const createUserProject = async (req, res, next) =>{
       user.save
 
      //return the project
-     res.status(201).json({project,  message: 'Created Successfully'})
+     res.status(201).json({  message: 'Created Successfully', project})
    } catch (error) {
     next(error);
    }
