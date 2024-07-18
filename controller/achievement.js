@@ -86,6 +86,14 @@ try {
     }
   };
    
+
+  export const getOneAchievement = async (req, res) =>{
+
+    const achievement = await AchievementModel.findById(req.params.id)
+    res.status(200).json(achievement)
+  }
+
+
   export const deleteUserAchievement = async (req, res) => {
     try {
      

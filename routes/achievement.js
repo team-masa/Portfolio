@@ -1,15 +1,18 @@
 import { Router } from "express";
 import { checkUserSession } from "../Middleware/auth.js";
-import { createAchievement, updatetAchievement,getAllUserAchievement, deleteUserAchievement  } from "../controller/achievement.js";
+import { createAchievement, updatetAchievement,getAllUserAchievement, getOneAchievement, deleteUserAchievement  } from "../controller/achievement.js";
 import { remoteUpload } from "../Middleware/upload.js";
 
 const achievementRouter = Router();
+
 achievementRouter.post('/users/achievement',  checkUserSession,
     remoteUpload.fields([
         {name: "image", maxCount: 1},
     ]), createAchievement);
 
 achievementRouter.get('/users/achievement',  checkUserSession,getAllUserAchievement);
+
+achievementRouter.get('/users/achievement/:id', checkUserSession, getOneAchievement)
 
 achievementRouter.patch('/users/achievement/:id', checkUserSession, remoteUpload.fields([
     {name: "image", maxCount: 1},
