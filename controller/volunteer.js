@@ -47,7 +47,7 @@ export const getAllUserVolunteering = async (req, res) =>{
 
    const allVolunteer = await VolunteerModel.find({user: userSessionId})
    if(allVolunteer.length == 0){
-     return res.status(404).send({Volunteering: allVolunteer})
+     return res.status(200).send({Volunteering: allVolunteer})
    }
    res.status(200).json({Volunteering: allVolunteer})
  } catch (error) {
