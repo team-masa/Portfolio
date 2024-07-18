@@ -5,7 +5,7 @@ import { Router } from "express";
 
 export const volunteeringRouter = Router()
 
-volunteeringRouter.post('/users/volunteer', checkUserSession, createUserVolunteering)
-volunteeringRouter.get('/users/volunteer', checkUserSession, getAllUserVolunteering)
-volunteeringRouter.patch('/users/volunteer/:id', checkUserSession, updateUserVolunteering)
-volunteeringRouter.delete('/users/volunteer/:id', checkUserSession, deleteUserVolunteering)
+volunteeringRouter.post('/users/volunteering', checkUserSession, createUserVolunteering)
+volunteeringRouter.get('/users/volunteering', checkUserSession, getAllUserVolunteering)
+volunteeringRouter.patch('/users/volunteering/:id', checkUserSession, updateUserVolunteering)
+volunteeringRouter.delete('/users/volunteering/:id', checkUserSession, deleteUserVolunteering)
