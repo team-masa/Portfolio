@@ -79,6 +79,12 @@ export const getAllUserEducation = async (req, res, next) => {
     }
 }
 
+export const getOneEducation = async (req, res) =>{
+
+  const education = await EducationModel.findById(req.params.id)
+  res.status(200).json(education)
+}
+
 export const deleteUserEducation = async (req, res) => {
     try {
      
