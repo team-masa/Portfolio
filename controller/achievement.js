@@ -77,9 +77,9 @@ try {
       //we are fetching Achievement that belongs to a particular user
       const userSessionId = req.session?.user?.id || req?.user?.id;
       const allAchievement = await AchievementModel.find({ user: userSessionId });
-      if (allAchievement.length == 0) {
-        return res.status(200).json({Achievements: allAchievement});
-      }
+      // if (allAchievement.length == 0) {
+      //   return res.status(200).json({Achievements: allAchievement});
+      // }
       res.status(200).json({ Achievements: allAchievement });
     } catch (error) {
       return res.status(500).json({error})

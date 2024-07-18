@@ -40,9 +40,9 @@ try {
         const userSessionId = req.session?.user?.id || req?.user?.id;
 
         const allSkill =  await SkillsModel.find({user: userSessionId });
-        if(allSkill.length == 0){
-            return res.status(200).send({Skills:allSkill})
-        }
+        // if(allSkill.length == 0){
+        //     return res.status(200).send({Skills:allSkill})
+        // }
 
         res.status(200).json({Skills:allSkill})
 } catch (error) {

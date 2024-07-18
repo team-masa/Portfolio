@@ -68,9 +68,9 @@ export const getUserProfile = async (req, res) =>{
         //Get user id from session or request
         const userSessionId = req.session?.user?.id || req?.user?.id
         const profile = await UserProfile.find({user: userSessionId});
-        if (!profile){
-            return res.status(200).send({profile});
-        }
+        // if (!profile){
+        //     return res.status(200).send({profile});
+        // }
         res.status(200).json({profile})
     } catch (error) {
         return res.status(500).json({error})

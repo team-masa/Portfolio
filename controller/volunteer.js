@@ -46,9 +46,9 @@ export const getAllUserVolunteering = async (req, res) =>{
    const userSessionId = req.session?.user?.id || req?.user?.id;
 
    const allVolunteer = await VolunteerModel.find({user: userSessionId})
-   if(allVolunteer.length == 0){
-     return res.status(200).send({Volunteering: allVolunteer})
-   }
+  //  if(allVolunteer.length == 0){
+  //    return res.status(200).send({Volunteering: allVolunteer})
+  //  }
    res.status(200).json({Volunteering: allVolunteer})
  } catch (error) {
     return res.status(500).json({error})
