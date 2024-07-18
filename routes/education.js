@@ -9,7 +9,7 @@ educationRouter.post('/users/education',  checkUserSession, createEducation)
 
 educationRouter.get('/users/education',  checkUserSession, getAllUserEducation)
 
-achievementRouter.get('/users/education/:id', checkUserSession, getOneEducation)
+educationRouter.get('/users/education/:id', checkUserSession, getOneEducation)
 
 
 educationRouter.patch('/users/education/:id',  checkUserSession, updateEducation)

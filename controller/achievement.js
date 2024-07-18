@@ -78,7 +78,7 @@ try {
       const userSessionId = req.session?.user?.id || req?.user?.id;
       const allAchievement = await AchievementModel.find({ user: userSessionId });
       if (allAchievement.length == 0) {
-        return res.status(404).send("No Achievement added");
+        return res.status(200).json({Achievements: allAchievement});
       }
       res.status(200).json({ Achievements: allAchievement });
     } catch (error) {
