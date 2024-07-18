@@ -3,7 +3,7 @@ import { UserModel } from "../models/user.js";
 import { ExperienceModel } from "../models/experience.js";
 import { experienceSchema } from "../Schema/experience.js";
 
-export const createExperience = async (req, res) => {
+export const createExperience = async (req, res, next) => {
     try {
       const { error, value } = experienceSchema.validate(req.body);
   
@@ -25,9 +25,9 @@ export const createExperience = async (req, res) => {
   
       await user.save();
   
-      res.status(201).json({ addExperience });
+      res.status(201).json({ addExperience, message: 'Created Successfully' });
     } catch (error) {
-      console.log(error);
+      next(error);
     }
   };
    
@@ -51,7 +51,7 @@ export const createExperience = async (req, res) => {
             return res.status(404).send("experience not found");
         }
   
-      res.status(200).json({ changeExperience });
+      res.status(200).json({ changeExperience,  message: 'Updated Successfully' });
     } catch (error) {
       return res.status(500).json({error})
     }
@@ -66,9 +66,9 @@ export const createExperience = async (req, res) => {
            const userSessionId = req.session?.user?.id || req?.user?.id;
            const allExperience = await ExperienceModel.find({user: userSessionId});
 
-       if(allExperience.length == 0){
-           return res.status(200).send({experience:allExperience})
-       }
+      //  if(allExperience.length == 0){
+      //      return res.status(200).send({experience:allExperience})
+      //  }
        res.status(200).json({experience:allExperience})
        } catch (error) {
          next(error)  
@@ -101,7 +101,7 @@ export const createExperience = async (req, res) => {
   
         user.experiences.pull(req.params.id);
         await user.save();
-      res.status(200).json("Experience deleted");
+      res.status(200).json({experience,  message: 'Deleted Successfully'});
     } catch (error) {
       return res.status(500).json({error})
     }

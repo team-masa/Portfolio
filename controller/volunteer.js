@@ -2,7 +2,7 @@ import { volunteeringSchema } from "../Schema/volunteer.js";
 import { UserModel } from "../models/user.js";
 import { VolunteerModel } from "../models/volunteer.js";
 
-export const createUserVolunteering = async (req, res) =>{
+export const createUserVolunteering = async (req, res, next) =>{
    try {
      const {error, value} = volunteeringSchema.validate(req.body)
      if(error){
@@ -32,10 +32,10 @@ export const createUserVolunteering = async (req, res) =>{
      await user.save();
 
      //return the volunteer
-     res.status(201).json({volunteering})
+     res.status(201).json({volunteering,  message: 'Created Successfully'})
 
    } catch (error) {
-    console.log(error);
+    next(error);
    }
 }
 
@@ -46,9 +46,9 @@ export const getAllUserVolunteering = async (req, res) =>{
    const userSessionId = req.session?.user?.id || req?.user?.id;
 
    const allVolunteer = await VolunteerModel.find({user: userSessionId})
-   if(allVolunteer.length == 0){
-     return res.status(200).send({Volunteering: allVolunteer})
-   }
+  //  if(allVolunteer.length == 0){
+  //    return res.status(200).send({Volunteering: allVolunteer})
+  //  }
    res.status(200).json({Volunteering: allVolunteer})
  } catch (error) {
     return res.status(500).json({error})
@@ -64,7 +64,7 @@ export const getOneVolunteering = async (req, res) =>{
     if(getOneVolunteer.length == 0){
       return res.status(404).send('No volunteering added')
     }
-    res.status(200).json({Volunteering: oneVolunteer})
+    res.status(200).json({Volunteering: getOneVolunteer})
   } catch (error) {
      return res.status(500).json({error})
   }
@@ -93,7 +93,7 @@ export const updateUserVolunteering = async (req, res) =>{
       return res.status(404).send("Volunteering not found");
     }
 
-    res.status(200).json({volunteering})
+    res.status(200).json({volunteering,  message: 'Updated Successfully'})
   } catch (error) {
     return res.status(500).json({error})
   }
@@ -116,7 +116,7 @@ export const deleteUserVolunteering = async (req, res) =>{
     user.volunteering.pull(req.params.id);
     await user.save();
 
-    res.status(200).json("Volunteering deleted");
+    res.status(200).json({volunteering,  message: 'Deleted Successfully'});
   } catch (error) {
     return res.status(500).json({error});
   }

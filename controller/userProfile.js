@@ -28,14 +28,14 @@ try {
         //and save the user now with the userId
         await user.save()
 
-        res.status(201).json({profile});
+        res.status(201).json({profile,  message: 'Created Successfully'});
     
 } catch (error) {
  next(error)   
 }
 }
 
-export const updateProfile = async (req, res) =>{
+export const updateProfile = async (req, res, next) =>{
     try {
         const {error, value} = userProfileSchema.validate({
             ...req.body,
@@ -57,9 +57,9 @@ export const updateProfile = async (req, res) =>{
         if (!profile){
             return res.status(404).send("Profile not found");
         }
-        res.status(201).json({profile})
+        res.status(201).json({profile,  message: 'Updated Successfully'})
     } catch (error) {
-        console.log(error)
+        next(error)
     }
 }
 
@@ -68,9 +68,9 @@ export const getUserProfile = async (req, res) =>{
         //Get user id from session or request
         const userSessionId = req.session?.user?.id || req?.user?.id
         const profile = await UserProfile.find({user: userSessionId});
-        if (!profile){
-            return res.status(200).send({profile});
-        }
+        // if (!profile){
+        //     return res.status(200).send({profile});
+        // }
         res.status(200).json({profile})
     } catch (error) {
         return res.status(500).json({error})

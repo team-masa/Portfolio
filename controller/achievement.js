@@ -2,7 +2,7 @@ import { UserModel } from "../models/user.js";
 import { AchievementModel } from "../models/achievement.js";
 import { achievementSchema } from "../Schema/achievement.js";
 
-export const createAchievement = async(req, res) =>{
+export const createAchievement = async(req, res, next) =>{
 
 try {
     
@@ -36,9 +36,9 @@ try {
               await user.save();
        
            //return the achievement
-               res.status(201).json(achievement)
+      res.status(201).json({ achievement, message: 'Achievement Created Successfully'})
 } catch (error) {
-    console.log(error);
+    next(error);
 
 }
    };
@@ -64,7 +64,7 @@ try {
             return res.status(404).send("Achievement not found");
         }
   
-      res.status(200).json({ achievement });
+      res.status(200).json({ achievement,  message: 'Achievement Updated Successfully' });
     } catch (error) {
       return res.status(500).json({error})
     }
@@ -77,9 +77,9 @@ try {
       //we are fetching Achievement that belongs to a particular user
       const userSessionId = req.session?.user?.id || req?.user?.id;
       const allAchievement = await AchievementModel.find({ user: userSessionId });
-      if (allAchievement.length == 0) {
-        return res.status(200).json({Achievements: allAchievement});
-      }
+      // if (allAchievement.length == 0) {
+      //   return res.status(200).json({Achievements: allAchievement});
+      // }
       res.status(200).json({ Achievements: allAchievement });
     } catch (error) {
       return res.status(500).json({error})
@@ -112,7 +112,7 @@ try {
         user.achievements.pull(req.params.id);
         await user.save();
 
-      res.status(200).json("Achievement deleted");
+      res.status(200).json({ achievement, message: 'Achievement Deleted Successfully'});
     } catch (error) {
       return res.status(500).json({error})
     }

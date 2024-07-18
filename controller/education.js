@@ -29,7 +29,7 @@ export const createEducation = async(req, res) =>{
        await user.save();
 
     //return the education
-        res.status(201).json({addEducation});
+        res.status(201).json({addEducation,  message: 'Education Created Successfully'});
 
  } catch (error) {
     return res.status(500).send(error)
@@ -56,7 +56,7 @@ export const updateEducation = async(req, res, next) => {
              return res.status(404).send("Education not found");
          }
    
-       res.status(201).json({ Education });
+       res.status(201).json({ Education,  message: 'Education Updated Successfully' });
     } catch (error) {
         next(error);
     }
@@ -70,9 +70,9 @@ export const getAllUserEducation = async (req, res, next) => {
         //we are fetching education that belongs to a particular user
          const userSessionId = req.session?.user?.id || req?.user?.id;
     const allEducation = await EducationModel.find({ user: userSessionId });
-    if (allEducation.length == 0) {
-      return res.status(200).send({education: allEducation});
-    }
+    // if (allEducation.length == 0) {
+    //   return res.status(200).send({education: allEducation});
+    // }
     res.status(200).json({ education: allEducation });
     } catch (error) {
       next(error)  
@@ -101,7 +101,7 @@ export const deleteUserEducation = async (req, res) => {
   
         user.education.pull(req.params.id);
         await user.save();
-      res.status(200).json("Education deleted");
+      res.status(200).json({ education,  message: 'Education Deleted Successfully' });
     } catch (error) {
       return res.status(500).json({error})
     }
