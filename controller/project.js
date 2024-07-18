@@ -3,7 +3,7 @@ import { projectSchema } from "../Schema/project.js";
 import { ProjectModel } from "../models/project.js";
 import { UserModel } from "../models/user.js";
 
-export const createUserProject = async (req, res) =>{
+export const createUserProject = async (req, res, next) =>{
    try {
      const {error, value} = projectSchema.validate(req.body)
      if(error){
@@ -29,7 +29,7 @@ export const createUserProject = async (req, res) =>{
      //return the project
      res.status(201).json({project,  message: 'Created Successfully'})
    } catch (error) {
-    console.log(error);
+    next(error);
    }
 }
 

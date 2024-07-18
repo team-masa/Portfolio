@@ -2,7 +2,7 @@ import { volunteeringSchema } from "../Schema/volunteer.js";
 import { UserModel } from "../models/user.js";
 import { VolunteerModel } from "../models/volunteer.js";
 
-export const createUserVolunteering = async (req, res) =>{
+export const createUserVolunteering = async (req, res, next) =>{
    try {
      const {error, value} = volunteeringSchema.validate(req.body)
      if(error){
@@ -35,7 +35,7 @@ export const createUserVolunteering = async (req, res) =>{
      res.status(201).json({volunteering,  message: 'Created Successfully'})
 
    } catch (error) {
-    console.log(error);
+    next(error);
    }
 }
 

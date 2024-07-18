@@ -35,7 +35,7 @@ try {
 }
 }
 
-export const updateProfile = async (req, res) =>{
+export const updateProfile = async (req, res, next) =>{
     try {
         const {error, value} = userProfileSchema.validate({
             ...req.body,
@@ -59,7 +59,7 @@ export const updateProfile = async (req, res) =>{
         }
         res.status(201).json({profile,  message: 'Updated Successfully'})
     } catch (error) {
-        console.log(error)
+        next(error)
     }
 }
 

@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken"
 import { userSchema } from '../Schema/userSchema.js';
 import bcrypt from 'bcrypt';
 
-export const signup = async (req, res) =>{
+export const signup = async (req, res, next) =>{
 
     try {
       const {error, value} = userSchema.validate(req.body)
@@ -26,7 +26,7 @@ export const signup = async (req, res) =>{
           return res.status(201).json({'message': "Registration successful"});
           }
     } catch (error) {
-      console.log(error.message)
+      next(error)
     }
 
 }
