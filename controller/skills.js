@@ -3,7 +3,7 @@ import { SkillsModel } from "../models/skills.js";
 import { UserModel } from "../models/user.js";
 // import res from "express/lib/response.js";
 
-export const createUserSkill = async (req, res) =>{
+export const createUserSkill = async (req, res, next) =>{
     try {
         const {error, value} = skillSchema.validate(req.body)
         if(error){
