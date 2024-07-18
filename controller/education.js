@@ -70,9 +70,9 @@ export const getAllUserEducation = async (req, res, next) => {
         //we are fetching education that belongs to a particular user
          const userSessionId = req.session?.user?.id || req?.user?.id;
     const allEducation = await EducationModel.find({ user: userSessionId });
-    if (allEducation.length == 0) {
-      return res.status(200).send({education: allEducation});
-    }
+    // if (allEducation.length == 0) {
+    //   return res.status(200).send({education: allEducation});
+    // }
     res.status(200).json({ education: allEducation });
     } catch (error) {
       next(error)  
