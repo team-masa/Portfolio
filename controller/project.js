@@ -49,6 +49,14 @@ export const getAllUserProjects = async (req, res) =>{
    }
 }
 
+
+export const getOneProject = async (req, res) =>{
+
+   const project = await ProjectModel.findById(req.params.id)
+   res.status(200).json(project)
+ }
+
+
 export const updateUserProject = async (req, res) =>{
    try {
       const {error, value} = projectSchema.validate(req.body);

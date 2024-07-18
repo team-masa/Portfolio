@@ -55,6 +55,21 @@ export const getAllUserVolunteering = async (req, res) =>{
  }
 }
 
+export const getOneVolunteering = async (req, res) =>{
+  try {
+    //we are fetching volunteer that belongs to a particular user
+    const userSessionId = req.session?.user?.id || req?.user?.id;
+ 
+    const getOneVolunteer = await VolunteerModel.findById({user: userSessionId})
+    if(getOneVolunteer.length == 0){
+      return res.status(404).send('No volunteering added')
+    }
+    res.status(200).json({Volunteering: oneVolunteer})
+  } catch (error) {
+     return res.status(500).json({error})
+  }
+ }
+
 export const updateUserVolunteering = async (req, res) =>{
   try {
     const {error, value} = volunteeringSchema.validate(req.body);

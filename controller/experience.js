@@ -74,6 +74,15 @@ export const createExperience = async (req, res) => {
          next(error)  
        }
    }
+
+
+
+   export const getOneExperience = async (req, res) =>{
+
+    const experience = await ExperienceModel.findById(req.params.id)
+    res.status(200).json(experience)
+  }
+
    
    export const deleteExperience = async (req, res) => {
     try {
