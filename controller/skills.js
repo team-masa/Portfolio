@@ -27,7 +27,7 @@ export const createUserSkill = async (req, res) =>{
         await user.save();
 
         //return the skills
-        res.status(201).json({skill})
+        res.status(201).json({skill,  message: 'Created Successfully'})
     } catch (error) {
         next(error)
     }
@@ -57,11 +57,11 @@ export const getOneUserSkill = async (req, res) =>{
             const userSessionId = req.session?.user?.id || req?.user?.id;
     
             const oneSkill =  await SkillsModel.findById({user: userSessionId });
-            if(oneSkillSkill.length == 0){
+            if(oneSkill.length == 0){
                 return res.status(404).send('No Skill added')
             }
     
-            res.status(200).json({Skills:oneSkillSkill})
+            res.status(200).json({Skills:oneSkill})
     } catch (error) {
         return res.status(500).json({error})
     }
@@ -86,7 +86,7 @@ export const updateUserSkill = async (req, res) =>{
             return res.status(404).send("Skill not found");
         }
 
-        res.status(200).json({skill})
+        res.status(200).json({skill,  message: 'Updated Successfully'})
     } catch (error) {
         return res.status(500).json({error})
     }
@@ -109,7 +109,7 @@ export const deleteUserSkill = async (req, res) =>{
 
         user.skills.pull(req.params.id);
         await user.save();
-        res.status(200).json("Skill deleted");
+        res.status(200).json({skill,  message: 'Deleted Successfully'});
     } catch (error) {
         return res.status(500).json({error})
     }

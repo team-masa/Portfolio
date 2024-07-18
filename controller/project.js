@@ -3,7 +3,7 @@ import { projectSchema } from "../Schema/project.js";
 import { ProjectModel } from "../models/project.js";
 import { UserModel } from "../models/user.js";
 
-export const createUserProject = async (req, res) =>{
+export const createUserProject = async (req, res, next) =>{
    try {
      const {error, value} = projectSchema.validate(req.body)
      if(error){
@@ -27,9 +27,9 @@ export const createUserProject = async (req, res) =>{
       user.save
 
      //return the project
-     res.status(201).json({project})
+     res.status(201).json({project,  message: 'Created Successfully'})
    } catch (error) {
-    console.log(error);
+    next(error);
    }
 }
 
@@ -73,7 +73,7 @@ export const updateUserProject = async (req, res) =>{
 
       const project = await ProjectModel.findByIdAndUpdate(req.params.id, value, {new: true});
       if(!project){
-         return res.status(404).send("Project not found");
+         return res.status(404).send({ project,  message: 'Updated Successfully'});
       }
 
       res.status(200).json({project});
@@ -97,7 +97,7 @@ export const deleteUserProject = async (req, res) =>{
       }
       user.projects.pull(req.params.id);
       await user.save();
-      res.status(200).json("Project deleted");
+      res.status(200).json({project,  message: 'Deleted Successfully'});
    } catch (error) {
       return res.status(500).json({error})
    }

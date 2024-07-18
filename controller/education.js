@@ -29,7 +29,7 @@ export const createEducation = async(req, res) =>{
        await user.save();
 
     //return the education
-        res.status(201).json({addEducation});
+        res.status(201).json({addEducation,  message: 'Education Created Successfully'});
 
  } catch (error) {
     return res.status(500).send(error)
@@ -56,7 +56,7 @@ export const updateEducation = async(req, res, next) => {
              return res.status(404).send("Education not found");
          }
    
-       res.status(201).json({ Education });
+       res.status(201).json({ Education,  message: 'Education Updated Successfully' });
     } catch (error) {
         next(error);
     }
@@ -101,7 +101,7 @@ export const deleteUserEducation = async (req, res) => {
   
         user.education.pull(req.params.id);
         await user.save();
-      res.status(200).json("Education deleted");
+      res.status(200).json({ education,  message: 'Education Deleted Successfully' });
     } catch (error) {
       return res.status(500).json({error})
     }
