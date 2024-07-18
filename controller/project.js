@@ -40,7 +40,7 @@ export const getAllUserProjects = async (req, res) =>{
 
       const allProject = await ProjectModel.find({user: userSessionId});
       if (allProject.length == 0){
-         return res.status(404).send({Projects:allProject});
+         return res.status(200).send({Projects:allProject});
       }
 
       res.status(200).json({Projects:allProject})
