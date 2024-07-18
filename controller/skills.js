@@ -41,7 +41,7 @@ try {
 
         const allSkill =  await SkillsModel.find({user: userSessionId });
         if(allSkill.length == 0){
-            return res.status(404).send('No Skills added')
+            return res.status(404).send({Skills:allSkill})
         }
 
         res.status(200).json({Skills:allSkill})
