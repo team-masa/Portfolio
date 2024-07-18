@@ -8,7 +8,7 @@ try {
     
               const {error, value} = achievementSchema.validate({
                 ...req.body,
-                image: req.files.image[0].filename,
+                image: req.file.image.filename,
             });
     
               if(error){
@@ -36,7 +36,7 @@ try {
               await user.save();
        
            //return the achievement
-      res.status(201).json({ achievement, message: 'Achievement Created Successfully'})
+      res.status(201).json({ message: 'Achievement Created Successfully', achievement})
 } catch (error) {
     next(error);
 
@@ -44,11 +44,11 @@ try {
    };
    
    
-   export const updatetAchievement = async(req, res) => {
+   export const updateAchievement = async(req, res) => {
        try {
            const {error, value} = achievementSchema.validate({  
             ...req.body,
-            image: req.files.image[0].filename,})
+            image: req.file.image.filename,})
 
           if(error){
               return res.status(400).send(error.details[0].message);
@@ -64,7 +64,7 @@ try {
             return res.status(404).send("Achievement not found");
         }
   
-      res.status(200).json({ achievement,  message: 'Achievement Updated Successfully' });
+      res.status(200).json({ message: 'Achievement Updated Successfully', achievement });
     } catch (error) {
       return res.status(500).json({error})
     }
@@ -87,10 +87,14 @@ try {
   };
    
 
-  export const getOneAchievement = async (req, res) =>{
-
-    const achievement = await AchievementModel.findById(req.params.id)
-    res.status(200).json(achievement)
+  export const getOneAchievement = async (req, res, next) =>{
+try {
+  
+      const achievement = await AchievementModel.findById(req.params.id)
+      res.status(200).json(achievement)
+} catch (error) {
+  next(error)
+}
   }
 
 
@@ -112,7 +116,7 @@ try {
         user.achievements.pull(req.params.id);
         await user.save();
 
-      res.status(200).json({ achievement, message: 'Achievement Deleted Successfully'});
+      res.status(200).json({ message: 'Achievement Deleted Successfully'});
     } catch (error) {
       return res.status(500).json({error})
     }
