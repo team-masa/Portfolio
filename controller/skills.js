@@ -14,9 +14,9 @@ export const createUserSkill = async (req, res) =>{
 
         //after, find the user with the id that you passed when creating the skills
         const user = await UserModel.findById(userSessionId);
-        if(!user){
-            return res.status(404).send('User not found');
-        }
+        // if(!user){
+        //     return res.status(404).send('User not found');
+        // }
 
         const skill = await SkillsModel.create({...value, user: userSessionId});
 
