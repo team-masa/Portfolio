@@ -75,7 +75,7 @@ export const updateUserSkill = async (req, res) =>{
             return res.status(400).send(error.details[0].message)
         }
 
-        const userSessionId = req.session?.user?.id || req?.user?.id;
+        const userSessionId = req.session?.user?.id || req?.user.id;
         const user = await UserModel.findById(userSessionId);
         if(!user){
             return res.status(404).send("User not found");
@@ -96,7 +96,7 @@ export const deleteUserSkill = async (req, res) =>{
     try {
         
 
-        const userSessionId = req.session?.user?.id || req?.user?.id;
+        const userSessionId = req.session?.user?.id || req?.user.id;
         const user = await UserModel.findById(userSessionId);
         if(!user){
             return res.status(404).send("User not found");
