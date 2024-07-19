@@ -11,7 +11,7 @@ export const createExperience = async (req, res, next) => {
         return res.status(400).send(error.details[0].message);
       }
   
-      const userSessionId = req.session?.user?.id || req?.user?.id;
+      const userSessionId = req.session?.user?.id || req?.user.id;
      
   
       const user = await UserModel.findById(userSessionId);
@@ -21,7 +21,7 @@ export const createExperience = async (req, res, next) => {
   
       const addExperience = await ExperienceModel.create({ ...value, user: userSessionId });
   
-      user.experiences.push(addExperience._id)
+      user.experiences.push(addExperience.id)
   
       await user.save();
   
@@ -40,7 +40,7 @@ export const createExperience = async (req, res, next) => {
         return res.status(400).send(error.details[0].message);
       }
   
-      const userSessionId = req.session?.user?.id || req?.user?.id; 
+      const userSessionId = req.session?.user?.id || req?.user.id; 
       const user = await UserModel.findById(userSessionId);
       if (!user) {
         return res.status(404).send("User not found");
@@ -48,7 +48,7 @@ export const createExperience = async (req, res, next) => {
   
       const changeExperience = await ExperienceModel.findByIdAndUpdate(req.params.id, value, { new: true });
         if (!changeExperience) {
-            return res.status(404).send("experience not found");
+            return res.status(404).send({ Experience: experience});
         }
   
       res.status(200).json({ changeExperience,  message: 'Updated Successfully' });
@@ -63,7 +63,7 @@ export const createExperience = async (req, res, next) => {
    
        try {
            //we are fetching experience that belongs to a particular user
-           const userSessionId = req.session?.user?.id || req?.user?.id;
+           const userSessionId = req.session?.user?.id || req?.user.id;
            const allExperience = await ExperienceModel.find({user: userSessionId});
 
       //  if(allExperience.length == 0){
@@ -88,7 +88,7 @@ export const createExperience = async (req, res, next) => {
     try {
      
   
-      const userSessionId = req.session?.user?.id || req?.user?.id; 
+      const userSessionId = req.session?.user?.id || req?.user.id; 
       const user = await UserModel.findById(userSessionId);
       if (!user) {
         return res.status(404).send("User not found");
@@ -101,7 +101,7 @@ export const createExperience = async (req, res, next) => {
   
         user.experiences.pull(req.params.id);
         await user.save();
-      res.status(200).json({experience,  message: 'Deleted Successfully'});
+      res.status(200).json({  message: 'Deleted Successfully'});
     } catch (error) {
       return res.status(500).json({error})
     }
