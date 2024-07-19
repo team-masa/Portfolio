@@ -10,13 +10,13 @@ export const checkUserSession = (req, res, next) => {
             //Extract token from headers
             const token = req.headers.authorization.split(' ')[1];
             //Verify the token to get user and Append user to request
-            const user = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
+            req.user = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
             //Call next function
             next()
     } catch (error) {
-        res.status(401).json(error)
+       return res.status(401).json({error: "Token Expired"})
     }
     } else {
-        res.status(401).json('User not authenticated')
+        res.status(401).json({error: 'Not authenticated'})
     }
 }
