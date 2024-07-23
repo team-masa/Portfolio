@@ -6,8 +6,8 @@ export const createProfile = async (req, res, next) =>{
 try {
         const {error, value} = userProfileSchema.validate({
             ...req.body,
-            profilePicture: req.files.profilePicture[0].filename,
-            resume: req.files.resume[0].filename,
+            profilePicture: req.files?.profilePicture[0].filename,
+            resume: req.files?.resume[0].filename,
         });
     
         if(error){
@@ -16,14 +16,15 @@ try {
 
         const userSessionId = req.session?.user?.id || req?.user.id;
 
-        const user = await UserModel.findById(userSessionId)
+        const user = await UserModel.findById(userSessionId);
+
         if(!user){
-            return res.status(404).send('User not found')
+            return res.status(404).send('User not found');
         }
     
         const profile = await UserProfile.create({...value, user: userSessionId});
     
-        user.userProfile = profile. id
+        user.userProfile = profile.id
     
         //and save the user now with the userId
         await user.save()
@@ -67,10 +68,13 @@ export const getUserProfile = async (req, res) =>{
     try {
         //Get user id from session or request
         const userSessionId = req.session?.user?.id || req?.user.id
-        const profile = await UserProfile.find({user: userSessionId});
-        // if (!profile){
-        //     return res.status(200).send({profile});
-        // }
+        const profile = await UserProfile.findOne({user: userSessionId}).populate({
+            path: 'user',
+            select: '-password'
+        });
+        if (!profile){
+            return res.status(200).send({profile});
+        }
         res.status(200).json({profile})
     } catch (error) {
         return res.status(500).json({error})
