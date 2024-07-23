@@ -6,24 +6,26 @@ import bcrypt from 'bcrypt';
 export const signup = async (req, res, next) =>{
 
     try {
-      const {error, value} = userSchema.validate(req.body)
+      const {error, value} = userSchema.validate(req.body);
       if(error){
-          return res.status(400).send(error.details[0].message)
+          return res.status(400).send(error.details[0].message);
       }
   
-      const email = value.email
+      const email = value.email;
   
-      const findIfUserExist = await UserModel.findOne({email})
+      const findIfUserExist = await UserModel.findOne({email});
       if(findIfUserExist){
-          return res.status(401).send('User has already signedup')
+          return res.status(401).send('User has already signedup');
       }else{
           const hashedPassword = await bcrypt.hash(value.password, 6);
           value.password = hashedPassword;
   
-          const addUser = await UserModel.create(value);
+          // const addUser = 
+          await UserModel.create(value);
   
-          req.session.user = {id: addUser.id}; 
-          return res.status(201).json({'message': "Registration successful"});
+          // req.session.user = {id: addUser.id}; 
+
+          return res.status(201).json({message: "Registration successful"});
           }
     } catch (error) {
       next(error)
@@ -33,7 +35,7 @@ export const signup = async (req, res, next) =>{
 
 
 
-// Token
+// Login Token
 export const token = async (req, res, next) => {
   try {
     const { userName, email, password } = req.body;
@@ -45,7 +47,7 @@ export const token = async (req, res, next) => {
     if (!user) {
       return res.status(401).json("User does not exist");
     }else {
-        const correctPass =  bcrypt.compare(password, user.password);
+        const correctPass = await bcrypt.compare(password, user.password);
     if (!correctPass) {
       return res.status(401).json("Invalid login details");
     }
@@ -78,7 +80,7 @@ export const login = async (req, res, next) => {
     if (!user) {
       return res.status(401).json("User does not exist");
     }else {
-        const correctPass =  bcrypt.compare(password, user.password);
+        const correctPass =  await bcrypt.compare(password, user.password);
     if (!correctPass) {
       return res.status(401).json("Invalid login details");
     }
@@ -105,7 +107,7 @@ try {
       //use populate to populate the education
       const options = { sort: { startDate: -1 } }
 
-      const userDetails = await UserModel.findOne({userName})
+      const userDetails = await UserModel.findOne({userName}).select("-password")
         .populate({
           path:"education",
           options,
@@ -122,7 +124,7 @@ try {
           options,
         })
         .populate({
-          path: "volunteer",
+          path: "volunteering",
           options,
         })
         .populate({
