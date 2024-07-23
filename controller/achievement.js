@@ -8,7 +8,7 @@ try {
     
               const {error, value} = achievementSchema.validate({
                 ...req.body,
-                image: req?.file?.filename,
+                image: req.file.filename,
             });
     
               if(error){
@@ -29,14 +29,14 @@ try {
     
         
                //if user is found, push achievement id created inside
-                 user.achievements.push(achievement. id)
+                 user.achievements.push(achievement.id)
     
 
               //and save the user now with the achievementId
               await user.save();
        
            //return the achievement
-      res.status(201).json({ message: 'Achievement Created Successfully', achievement})
+      res.status(201).json({ AchievementModel: achievement, message: 'Achievement Created Successfully'})
 } catch (error) {
     next(error);
 
@@ -61,10 +61,10 @@ try {
   
       const achievement = await AchievementModel.findByIdAndUpdate(req.params.id, value, { new: true });
         if (!achievement) {
-            return res.status(404).send("Achievement not found");
+            return res.status(404).json({AchievementModel: achievement, message:"Achievement not found"});
         }
   
-      res.status(200).json({ message: 'Achievement Updated Successfully', achievement });
+      res.status(200).json({ AchievementModel: achievement, message: 'Achievement Updated Successfully'});
     } catch (error) {
       return res.status(500).json({error})
     }
@@ -77,10 +77,10 @@ try {
       //we are fetching Achievement that belongs to a particular user
       const userSessionId = req.session?.user?.id || req?.user.id;
       const allAchievement = await AchievementModel.find({ user: userSessionId });
-      // if (allAchievement.length == 0) {
-      //   return res.status(200).json({Achievements: allAchievement});
-      // }
-      res.status(200).json({ Achievements: allAchievement });
+      if (allAchievement.length == 0) {
+        return res.status(200).json({AchievementModel: allAchievement});
+      }
+      res.status(200).json({ AchievementModel: allAchievement });
     } catch (error) {
       return res.status(500).json({error})
     }
