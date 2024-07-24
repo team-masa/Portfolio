@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { checkUserSession } from "../Middleware/auth.js";
-// import { createProfile, updateProfile, getUserProfile } from "../controller/profile.js";
+
 import { remoteUpload } from "../Middleware/upload.js";
-// import { createUserProject } from "../controller/project.js";
+
 import { createProfile, getUserProfile, updateProfile } from "../controller/userProfile.js";
 
 

@@ -1,7 +1,6 @@
 import { model, Schema, Types } from "mongoose";
 
 const userProfileSchema = new Schema({
-    
     profilePicture: {type: String},
     location: {type: String},
     maritalStatus:{
