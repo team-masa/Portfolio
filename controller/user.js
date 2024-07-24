@@ -69,7 +69,7 @@ export const token = async (req, res, next) => {
 };
 
 
-export const login = async (req, res, next) => {
+export const login =  async (req, res, next) => {
   try {
     const { userName, email, password } = req.body;
     //  Find a user using their email or username

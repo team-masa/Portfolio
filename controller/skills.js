@@ -17,6 +17,15 @@ export const createUserSkill = async (req, res, next) =>{
         if(!user){
             return res.status(404).send('User not found');
         }
+      //convert the skill name entered to lowercase
+      const skillNameToLowerCase = value.name.toLowerCase();
+    //   compare that skill name with all existing skills for that user in the database
+    const skillsExists = user.skills.find(skill => skill.name.toLowerCase() === skillNameToLowerCase);
+
+    // check if skills already exist for a user
+    if (skillsExists) {
+        return res.status(400).json({message: 'This Skills Already Exist'});
+    }
 
         const skill = await SkillsModel.create({...value, user: userSessionId});
 
