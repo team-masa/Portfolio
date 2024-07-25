@@ -39,7 +39,7 @@ export const signup = async (req, res, next) =>{
 export const token = async (req, res, next) => {
   try {
     const { userName, email, password } = req.body;
-    //Validate request
+    // Find user using their email/ username Validate request
     const user = await UserModel.findOne({
       $or: [{ email }, { userName }],
     });
@@ -47,7 +47,8 @@ export const token = async (req, res, next) => {
     if (!user) {
       return res.status(401).json("User does not exist");
     }else {
-        const correctPass = await bcrypt.compare(password, user.password);
+      //verify password
+        const correctPass =  bcrypt.compareSync(password, user.password);
     if (!correctPass) {
       return res.status(401).json("Invalid login details");
     }
@@ -60,7 +61,12 @@ export const token = async (req, res, next) => {
     // Return response
     res.status(200).json({
       message: 'User logged in',
-      accessToken: token
+      accessToken: token,
+      user: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        userName: user.userName
+      }
     })
     }
   } catch (error) {
