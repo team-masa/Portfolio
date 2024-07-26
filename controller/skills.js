@@ -12,25 +12,27 @@ export const createUserSkill = async (req, res, next) =>{
 
         const userSessionId = req.session?.user?.id || req?.user?.id;
 
+        
         //after, find the user with the id that you passed when creating the skills
         const user = await UserModel.findById(userSessionId);
         if(!user){
             return res.status(404).send('User not found');
         }
       //convert the skill name entered to lowercase
-      const skillNameToLowerCase = value.name.toLowerCase();
-    //   compare that skill name with all existing skills for that user in the database
-    const skillsExists = user.skills.find(skill => skill.name.toLowerCase() === skillNameToLowerCase);
+      const skillName = value.name.toLowerCase();
 
-    // check if skills already exist for a user
-    if (skillsExists) {
-        return res.status(400).json({message: 'This Skills Already Exist'});
-    }
+     // Check if the skill already exists for the user
+     const existingSkill = await SkillsModel.findOne({ name: skillName, user: userSessionId });
 
-        const skill = await SkillsModel.create({...value, user: userSessionId});
+     if (existingSkill) {
+         return res.status(400).json({ message: 'This skill already exists' });
+     }
+
+        const skill = new SkillsModel({ name: skillName, user: userSessionId });
+        await skill.save();;
 
         //if you find the user, push the skills id you just created inside
-        user.skills.push(skill._id);
+        user.skills.push(skill.id);
 
         //and save the user now with the skillsid
         await user.save();
