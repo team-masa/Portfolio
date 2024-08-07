@@ -9,7 +9,7 @@ const skillsSchema = new Schema({
            user: {type: Types.ObjectId, ref: 'User', select:false}
         },{
    timestamps:true
-})
+});
 
    skillsSchema.plugin(toJSON)
   export const SkillsModel = model('Skill', skillsSchema)

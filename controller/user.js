@@ -163,14 +163,71 @@ export const getUsers = async (req, res) =>{
   return res.status(200).json({users})
 };
 
-export const logout = async (req, res, next) =>{
-    try {
-      //Destroy User Session
-      req.session.destroy();
-      //Return response
-      res.status(200).json('User Logged out successfully')
-    } catch (error) {
-      next(error)
-    }
-  }
+// export const logout = async (req, res, next) =>{
+//     try {
+//       //Destroy User Session
+//       req.session.destroy();
+//       //Return response
+//       res.status(200).json('User Logged out successfully')
+//     } catch (error) {
+//       next(error)
+//     }
+//   }
   
+
+export const logout = async(req, res, next) => {
+  try { 
+   // Check if session exists
+   if (!req.session) {
+    return res.sendStatus(404); // Not Found if session does not exist
+  }
+    req.session.destroy();
+
+    res.status(200).json({message: 'Logged Out Successfully'});
+  } catch (error) {
+    next(error);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+//Logout Function
+// export const logout = async(req, res, next) => {
+//   try {   
+//     const { userName, email, password } = req.body; 
+
+//         // Check for the authorization token
+//     const token = req.header('Authorization')?.replace('Bearer ', '');
+//     if (!token) {
+//       return res.status(401).json({message: 'Cannout logout'})
+//     }
+
+//         // Find the user by email or username
+//     const user = await UserModel.findOne({
+//       $or: [{ email }, { userName }],
+//     });
+//     if (!user) {
+//       res.status(401).json({message: 'Cannot logout, User Not found'})
+//     }
+//         // Add the token to the blacklist
+//     tokenBlacklist.push(token);
+
+//         // Destroy the session
+//     req.session.destroy();
+
+//   res.send({message: 'Logged Out Successfully'});
+
+
+//   } catch (error) {
+//     next (error)
+//   }
+// }
