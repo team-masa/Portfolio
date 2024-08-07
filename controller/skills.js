@@ -9,9 +9,7 @@ export const createUserSkill = async (req, res, next) =>{
         if(error){
             return res.status(400).send(error.details[0].message)
         }
-
         const userSessionId = req.session?.user?.id || req?.user?.id;
-
         
         //after, find the user with the id that you passed when creating the skills
         const user = await UserModel.findById(userSessionId);

@@ -51,7 +51,7 @@ export const updateEducation = async(req, res, next) => {
          return res.status(404).send("User not found");
        }
    
-       const Education = await Education.findByIdAndUpdate(req.params.id, value, { new: true });
+       const Education = await EducationModel.findByIdAndUpdate(req.params.id, value, { new: true });
          if (!Education) {
              return res.status(404).send({ education:Education});
          }
