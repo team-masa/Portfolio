@@ -59,21 +59,24 @@ try {
 }
 }
 
-export const getOneUserSkill = async (req, res) =>{
+export const getOneUserSkill = async (req, res, next) =>{
     
     try {
             //we are fetching skills that belongs to a particular user
             const userSessionId = req.session?.user?.id || req?.user?.id;
-    
-            const oneSkill =  await SkillsModel.findById({user: userSessionId });
+            const user = await UserModel.findById(userSessionId);
+            if (!user) {
+              return res.status(404).send("User not found");
+            }
+            const oneSkill =  await SkillsModel.findById(req.params.id);
             // if(oneSkill.length == 0){
             //     return res.status(404).send('No Skill added')
             // }
     
             res.status(200).json({Skills:oneSkill})
     } catch (error) {
-        return res.status(500).json({error})
-    }
+next   (error) 
+}
     }
 
 export const updateUserSkill = async (req, res) =>{
