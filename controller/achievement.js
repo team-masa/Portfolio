@@ -29,7 +29,7 @@ try {
     
         
                //if user is found, push achievement id created inside
-                 user.achievements.push(achievement. id)
+                 user.achievements.push(achievement.id)
     
 
               //and save the user now with the achievementId
