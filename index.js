@@ -5,6 +5,7 @@ import cors from "cors";
 import session from "express-session";
 import expressOasGenerator from "@mickeymond/express-oas-generator";
 import "dotenv/config";
+import passport from "passport";
 import { userRouter } from "./routes/user.js"; 
 import educationRouter from "./routes/education.js";
 import experienceRouter from "./routes/experience.js";
@@ -13,6 +14,7 @@ import { projectRouter } from "./routes/project.js";
 import userProfileRouter from "./routes/userProfile.js";
 import { skillRouter } from "./routes/skills.js";
 import { volunteeringRouter } from "./routes/volunteer.js";
+// import { authRouter } from "./routes/googleAuth.js";
 
 
 const app = express();
@@ -25,6 +27,7 @@ expressOasGenerator.handleResponses(app, {
     mongooseModels: mongoose.modelNames(), 
 })
 
+app.use(passport.initialize());
 
 app.use(
     session({
@@ -42,6 +45,8 @@ app.get("/api/v1/health", (req, res)=>{
   res.json({status: "UP"});
 });
 
+
+// app.use( authRouter);
 app.use('/api/v1', userRouter)
 app.use("/api/v1", userProfileRouter);
 app.use("/api/v1", educationRouter);
