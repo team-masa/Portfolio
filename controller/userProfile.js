@@ -6,8 +6,8 @@ export const createProfile = async (req, res, next) => {
     try {
         const { error, value } = userProfileSchema.validate({
             ...req.body,
-            profilePicture: req.files?.profilePicture[0].filename,
-            resume: req?.files?.resume[0].filename,
+            profilePicture: req?.files?.profilePicture[0]?.filename,
+            resume: req?.files?.resume[0]?.filename,
         });
         if (error) {
             return res.status(400).send(error.details[0].message)
@@ -20,7 +20,10 @@ export const createProfile = async (req, res, next) => {
         if (!user) {
             return res.status(404).send('User not found');
         }
-
+            // Check if the user already has a profile
+        if (user.userProfile) {
+            return res.status(409).json({ message: 'Profile already exists. You can only create one profile.' });
+          }
         const profile = await UserProfile.create({ ...value, user: userSessionId });
 
         user.userProfile = profile.id
@@ -38,7 +41,7 @@ export const createProfile = async (req, res, next) => {
 export const updateProfile = async (req, res, next) => {
     try {
         const updateFields = {...req.body};
-        if (req?.file?.profilePicture){
+        if (req.file?.profilePicture){
             updateFields.profilePicture = req?.file?.filename;
         } else if (req.files?.profilePicture) {
             updateFields.profilePicture = req.files.profilePicture[0].filename;
@@ -46,8 +49,8 @@ export const updateProfile = async (req, res, next) => {
 
         if (req.file?.resume) {
          updateFields.resume = req?.file?.filename;
-         } else if (req?.files?.resume) {
-            updateFields.resume = req?.files?.resume[0].filename;
+         } else if (req.files?.resume) {
+            updateFields.resume = req.files.resume[0].filename;
         }
 
         const { error, value } = userProfileSchema.validate(updateFields);

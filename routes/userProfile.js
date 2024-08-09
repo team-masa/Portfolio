@@ -10,7 +10,7 @@ userProfileRouter.get("/users/userProfile", checkUserSession, getUserProfile);
 
 userProfileRouter.post(
     "/users/userProfile",
-    remoteUpload.fields([
+    remoteUpload.single([
         {name: "profilePicture", maxCount: 1},
         {name: "resume", maxCount: 1},
     ]),
