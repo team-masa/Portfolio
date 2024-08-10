@@ -29,14 +29,8 @@ export const createUserSkill = async (req, res, next) => {
       return res.status(400).json({ message: "This skill already exists" });
     }
 
-    const skill = new SkillsModel({
-      name: skillName,
-      levelOfProficiency: value.levelOfProficiency,
-      user: userSessionId,
-    });
-    await skill.save();
+    const skill = new SkillsModel.create({ ...value, user: userSessionId });
 
-    //if you find the user, push the skills id you just created inside
     user.skills.push(skill.id);
 
     //and save the user now with the skillsid
