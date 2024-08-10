@@ -5,7 +5,7 @@ export const educationSchema= joi.object({
         location: joi.string(),
         program: joi.string(),
         qualification: joi.string().optional(),
-        grade: joi.string().optional(),
+        grade: joi.string(),
         startDate: joi.date().required(),
         endDate: joi.date(),
         user: joi.string()

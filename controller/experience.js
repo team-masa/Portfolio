@@ -48,7 +48,7 @@ export const createExperience = async (req, res, next) => {
   
       const changeExperience = await ExperienceModel.findByIdAndUpdate(req.params.id, value, { new: true });
         if (!changeExperience) {
-            return res.status(404).send({ Experience: experience});
+            return res.status(404).send({ Experience: changeExperience});
         }
   
       res.status(200).json({ changeExperience,  message: 'Updated Successfully' });

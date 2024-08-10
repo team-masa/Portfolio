@@ -21,11 +21,10 @@ export const createUserProject = async (req, res, next) =>{
      const project = await ProjectModel.create({...value, user: userSessionId});
      
      //if you find the user, push the project id you just created inside
-     user.projects.push(project._id);
+     user.projects.push(project.id);
 
      //and save the user now with the project
-      user.save
-
+      await user.save();
      //return the project
      res.status(201).json({  message: 'Created Successfully', project})
    } catch (error) {
