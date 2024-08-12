@@ -46,7 +46,7 @@ export const updateProfile = async (req, res, next) => {
     } else if (req.files?.profilePicture) {
       updateFields.profilePicture = req.files.profilePicture[0].filename;
     }
-
+   
     const { error, value } = userProfileSchema.validate(updateFields);
 
     if (error) {
