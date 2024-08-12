@@ -51,10 +51,14 @@ catch (error) {
 }
 }
 
-export const getOneProject = async (req, res) =>{
+export const getOneProject = async (req, res, next) =>{
 
-   const project = await ProjectModel.findById(req.params.id)
-   res.status(200).json(project)
+   try {
+      const project = await ProjectModel.findById(req.params.id)
+      res.status(200).json(project)
+   } catch (error) {
+      next(error)
+   }
  }
 
 
@@ -74,7 +78,7 @@ export const updateUserProject = async (req, res) =>{
 
       const project = await ProjectModel.findByIdAndUpdate(req.params.id, value, {new: true});
       if(!project){
-         return res.status(404).send({ project,  message: 'Updated Successfully'});
+         return res.status(404).send({ project,  message: 'Project Not Found'});
       }
 
       res.status(200).json({project});
