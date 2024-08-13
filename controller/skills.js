@@ -29,7 +29,7 @@ export const createUserSkill = async (req, res, next) => {
       return res.status(400).json({ message: "This skill already exists" });
     }
 
-    const skill = new SkillsModel.create({ ...value, user: userSessionId });
+    const skill = await SkillsModel.create({ ...value, user: userSessionId });
 
     user.skills.push(skill.id);
 
