@@ -104,7 +104,7 @@ export const login = async (req, res, next) => {
 
 export const getUser = async (req, res, next) => {
   try {
-    const userName = req.params.userName.toLowerCase();
+    const userName = req.params.userName
     //get user based on the user id
     //use the select to exclude the password
     //use populate to populate the education
