@@ -3,10 +3,11 @@ import mongoose from "mongoose";
 import MongoStore from "connect-mongo";
 import cors from "cors";
 import session from "express-session";
+import { restartServer } from "./restart_server.js";
 import expressOasGenerator from "@mickeymond/express-oas-generator";
 import "dotenv/config";
 import passport from "passport";
-import { userRouter } from "./routes/user.js"; 
+import { userRouter } from "./routes/user.js";
 import educationRouter from "./routes/education.js";
 import experienceRouter from "./routes/experience.js";
 import achievementRouter from "./routes/achievement.js";
@@ -19,30 +20,30 @@ import { volunteeringRouter } from "./routes/volunteer.js";
 
 const app = express();
 app.use(express.json());
-app.use(cors({credentials: true, origin: '*'}));
+app.use(cors({ credentials: true, origin: '*' }));
 
 expressOasGenerator.handleResponses(app, {
-    alwaysServeDocs: true,
-    tags: ['auth','Profile', 'Skill', 'Projects', 'Volunteering', 'Experience', 'Education', 'Achievement'],
-    mongooseModels: mongoose.modelNames(), 
+  alwaysServeDocs: true,
+  tags: ['auth', 'Profile', 'Skill', 'Projects', 'Volunteering', 'Experience', 'Education', 'Achievement'],
+  mongooseModels: mongoose.modelNames(),
 })
 
 app.use(passport.initialize());
 
 app.use(
-    session({
-      secret: process.env.SESSION_SECRET,
-      resave: false,
-      saveUninitialized: true,
-      // Store session
-      store: MongoStore.create({
-        mongoUrl: process.env.MONGO_URL,
-      }),
-    })
-  );
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    // Store session
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URL,
+    }),
+  })
+);
 
-app.get("/api/v1/health", (req, res)=>{
-  res.json({status: "UP"});
+app.get("/api/v1/health", (req, res) => {
+  res.json({ status: "UP" });
 });
 
 
@@ -59,12 +60,18 @@ app.use("/api/v1", volunteeringRouter);
 expressOasGenerator.handleRequests();
 app.use((req, res) => res.redirect('/api-docs/'));
 
-await mongoose.connect(process.env.MONGO_URL);
+const reboot = async () => {
+  setInterval(restartServer, process.env.INTERVAL)
+}
+
+async function startServer () { await mongoose.connect(process.env.MONGO_URL);
 console.log("Database is connected")
-
-
-
-app.listen(7070, () => {
-    console.log('App is Listening on Port 7070')
-});
-
+  .then(() => {
+    app.listen(7070, () => {
+      reboot().then(() => {
+        console.log(`Server Restarted`)
+      });
+      console.log(`Server is Connected To Port`)
+    });
+  })
+}

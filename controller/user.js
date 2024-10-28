@@ -17,7 +17,7 @@ export const signup = async (req, res, next) => {
     if (findIfUserExist) {
       return res.status(401).send("User has already signedup");
     } else {
-      const hashedPassword = await bcrypt.hash(value.password, 6);
+      const hashedPassword = await bcrypt.hash(value.password, 8);
       value.password = hashedPassword;
 
       const newUser = await UserModel.create(value);
@@ -136,6 +136,7 @@ export const getUser = async (req, res, next) => {
         options,
       });
     console.log(userDetails);
+    console.log(null)
     return res.status(202).json({ user: userDetails });
   } catch (error) {
     next(error);
