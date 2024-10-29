@@ -4,7 +4,7 @@ import { required } from "joi";
 
 
 const contactSchema = new Schema({
-    fullName: { type: String, required: true },
+    name: { type: String, required: true },
     email: { type: String, unique: true },
     message: { type: String, required },
     user: { type: Types.ObjectId, ref: "User", select: false },
